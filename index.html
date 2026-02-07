@@ -635,7 +635,48 @@ const copyText = async (text) => {
     toast(`已複製：${text}`);
   }
 };
+// ===== Safe HTML helpers =====
+const escapeHtml = (s='') =>
+  String(s).replaceAll('&','&amp;')
+           .replaceAll('<','&lt;')
+           .replaceAll('>','&gt;')
+           .replaceAll('"','&quot;')
+           .replaceAll("'","&#39;");
 
+const escapeAttr = (s='') =>
+  String(s).replaceAll('&','&amp;')
+           .replaceAll('"','&quot;')
+           .replaceAll("'","&#39;")
+           .replaceAll('<','&lt;')
+           .replaceAll('>','&gt;')
+           .replaceAll('\n','\\n');
+
+// ===== Place registry (avoid inline object in HTML) =====
+const placeRegistry = Object.create(null);
+let placeSeq = 1;
+
+const registerPlace = (p) => {
+  const base = (p?.q || p?.name || '').trim() || ('p' + placeSeq);
+  const key = 'p_' + btoa(unescape(encodeURIComponent(base))).slice(0,18).replaceAll('=','') + '_' + (placeSeq++);
+  placeRegistry[key] = p;
+  return key;
+};
+
+// ===== Event delegation for meal clicks (mobile-safe) =====
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-action="open-meal"]');
+  if(!el) return;
+
+  const key = el.getAttribute('data-placekey');
+  const desc = (el.getAttribute('data-desc') || '').replaceAll('\\n','\n');
+  const placeObj = placeRegistry[key];
+
+  if(placeObj){
+    window.openMeal(placeObj, desc);
+  }else{
+    toast('找不到該美食資料（請重新整理頁面）');
+  }
+});
 /* =========================
    Places
 ========================= */
@@ -1023,7 +1064,7 @@ const renderAll = () => {
     </div>
   `;
 
-  // Meals
+   // Meals (SAFE: mobile friendly)
   html += `
     <div class="section-header">
       <div class="dot" style="background:rgba(180,35,24,0.85)"></div>
@@ -1032,13 +1073,6 @@ const renderAll = () => {
     <div class="meals-grid">
   `;
 
-  const mTypes = [
-    {t:'早餐', k:'breakfast', c:'var(--thai-teal)'},
-    {t:'午餐', k:'lunch', c:'rgba(201,162,39,0.95)'},
-    {t:'晚餐', k:'rgba(180,35,24,0.95)', c:'rgba(180,35,24,0.95)'}
-  ];
-
-  // Fix dinner label + color cleanly
   const mTypesFixed = [
     {t:'早餐', k:'breakfast', c:'var(--thai-teal)'},
     {t:'午餐', k:'lunch', c:'rgba(201,162,39,0.95)'},
@@ -1051,17 +1085,31 @@ const renderAll = () => {
         <div class="meal-type" style="background:${m.c}">${m.t}</div>
         <ul>
     `;
+
     (d.meals[m.k] || []).forEach(item => {
       const p = item.place || { name: item.n, q: item.q || item.n, note: "" };
-      const safePlace = JSON.stringify(p).replace(/</g,'\\u003c');
-      const safeDesc = (item.d || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
-      html += `<li><span class="meal-item-link" onclick="openMeal(${safePlace}, '${safeDesc}')">${p.name}</span></li>`;
+      const key = registerPlace(p);
+
+      const summary = (item.d || '').split('\n')[0].trim();
+      const summaryHtml = summary ? `<div class="d" style="margin-top:4px;">${escapeHtml(summary)}</div>` : '';
+
+      html += `
+        <li>
+          <span class="meal-item-link"
+                data-action="open-meal"
+                data-placekey="${key}"
+                data-desc="${escapeAttr(item.d || '')}">
+            ${escapeHtml(p.name)}
+          </span>
+          ${summaryHtml}
+        </li>
+      `;
     });
+
     html += `</ul></div>`;
   });
 
   html += `</div>`;
-
   document.getElementById('content').innerHTML = html;
 };
 
@@ -1210,4 +1258,5 @@ window.onload = () => {
 };
 </script>
 </body>
+
 </html>
