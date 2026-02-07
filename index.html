@@ -793,10 +793,12 @@ const itinerary = [
     meals: {
       breakfast: [{ place: PLACES.BKK, d: '機上輕食：先保體力。' }],
       lunch: [{ place: PLACES.BKK, d: '機上主食：下機後再戰。' }],
-      dinner: [
-        { place: PLACES.PRANAKORN_BOAT, d: '勝利紀念碑名店；船麵份量小，建議一口氣點足。' },
-        { place: PLACES.GO_ANG, d: 'Go-Ang Pratunam：海南雞飯＋苦瓜排骨湯。' }
-      ]
+            dinner: [
+        { place: { name:'ตลาดนัดเมเจอร์ รัชโยธิน', q:'ตลาดนัดเมเจอร์ รัชโยธิน', note:'Major Ratchayothin 夜市攤位（20:00 仍可吃）' },
+          d: '【主選｜在地夜市】離飯店近、20:00 仍熱鬧。\n【建議吃法】Moo Ping 豬肉串＋糯米飯、Som Tam 青木瓜沙拉、烤海鮮/烤雞、泰奶。\n【走法】先到 Major Ratchayothin／BTS Ratchayothin 生活圈，看到排隊攤位就跟著買。' },
+        { place: { name:'Suki TeeNoi Gold (Major Ratchayothin)', q:'Suki TeeNoi Gold Major Ratchayothin', note:'深夜保底：想坐著吃／太晚到也吃得到' },
+          d: '【備案｜深夜保底】到夜市覺得太熱/太擠/想坐著吃就選它。\n【吃法】直接點肉盤＋蔬菜＋丸子類，湯底甜鹹泰式路線。' }
+      ],
     },
     transport: {
       headline: '機場進市區（自用保命版）',
@@ -1264,5 +1266,6 @@ window.onload = () => {
 </body>
 
 </html>
+
 
 
