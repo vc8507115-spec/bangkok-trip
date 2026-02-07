@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
+  <title>曼谷行程查詢｜自用 Today Mode（Thai Textile）</title>
+
+  <!-- Thai fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600;800&family=Sarabun:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #fff6e8;
+      --bg2:#f7fbff;
+
+      --text:#1b2430;
+      --muted:#5f6b7a;
+
+      --thai-gold:#c9a227;     /* 寺廟金 */
+      --thai-gold2:#e7cf86;    /* 金箔亮 */
+      --thai-teal:#0f766e;     /* 孔雀藍 */
+      --thai-red:#b42318;      /* 朱紅 */
+      --thai-ink:#111827;
+
+      --card-bg:#ffffff;
+      --border: rgba(17,24,39,0.10);
+
+      --shadow-soft: 0 12px 34px rgba(17,24,39,0.10);
+      --shadow-tight: 0 10px 24px rgba(17,24,39,0.12);
+
+      --radius-xl: 24px;
+      --radius-lg: 18px;
+
+      --sans: "Sarabun","PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
+      --display: "Kanit","PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
+    }
+
+    *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+
+    body{
+      margin:0;
+      font-family:var(--sans);
+      color:var(--text);
+      min-height:100vh;
+      overflow-x:hidden;
+
+      /* Thai textile (dense) background */
+      background:
+        radial-gradient(900px 460px at 18% 0%, rgba(201,162,39,0.12), transparent 62%),
+        radial-gradient(780px 420px at 92% 8%, rgba(15,118,110,0.14), transparent 58%),
+        radial-gradient(700px 380px at 70% 95%, rgba(180,35,24,0.10), transparent 60%),
+
+        repeating-linear-gradient(90deg,
+          rgba(17,24,39,0.04) 0px,
+          rgba(17,24,39,0.04) 1px,
+          transparent 1px,
+          transparent 8px
+        ),
+        repeating-linear-gradient(0deg,
+          rgba(17,24,39,0.035) 0px,
+          rgba(17,24,39,0.035) 1px,
+          transparent 1px,
+          transparent 10px
+        ),
+
+        repeating-linear-gradient(45deg,
+          rgba(15,118,110,0.05) 0px,
+          rgba(15,118,110,0.05) 2px,
+          transparent 2px,
+          transparent 12px
+        ),
+        repeating-linear-gradient(-45deg,
+          rgba(201,162,39,0.06) 0px,
+          rgba(201,162,39,0.06) 2px,
+          transparent 2px,
+          transparent 12px
+        ),
+
+        repeating-conic-gradient(
+          from 0deg at 50% 18%,
+          rgba(201,162,39,0.035) 0 7deg,
+          transparent 7deg 18deg
+        ),
+
+        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+    }
+
+    header{
+      padding: 26px 20px 8px;
+      text-align:center;
+    }
+    h1{
+      margin:0;
+      font-family: var(--display);
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: 1.2px;
+      color: var(--thai-ink);
+      text-shadow: 0 2px 0 rgba(231,207,134,0.45);
+      line-height: 1.05;
+    }
+    .sub{
+      margin-top: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--muted);
+    }
+
+    .hero-bar{
+      margin: 14px auto 0;
+      max-width: 720px;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: rgba(255,255,255,0.80);
+      border: 1px solid rgba(201,162,39,0.35);
+      box-shadow: 0 14px 34px rgba(17,24,39,0.08);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .hero-badge{
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--thai-teal);
+      letter-spacing: .2px;
+    }
+    .hero-dot{
+      width:6px;height:6px;border-radius:50%;
+      background: var(--thai-gold);
+    }
+
+    .wrap{max-width:1100px; margin:0 auto; padding-bottom: 60px;}
+
+    .search-container { padding: 0 20px 18px; }
+    .search-box{
+      display:flex; align-items:center; gap:10px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86)),
+        repeating-linear-gradient(90deg,
+          rgba(201,162,39,0.06) 0 10px,
+          transparent 10px 22px
+        );
+      border: 1px solid rgba(201,162,39,0.40);
+      border-radius: 999px;
+      padding: 10px 14px;
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(8px);
+    }
+    .search-box input{ all:unset; flex:1; font-size: 15px; color: var(--text); }
+
+    .pill{
+      border:none;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      cursor: pointer;
+      white-space: nowrap;
+      background: rgba(17,24,39,0.06);
+      color: var(--thai-ink);
+    }
+    .pill.primary{
+      background: linear-gradient(90deg, var(--thai-teal), #12a39a);
+      color:#fff;
+      box-shadow: 0 14px 22px rgba(15,118,110,0.22);
+    }
+    .pill.gold{
+      background: linear-gradient(90deg, var(--thai-gold2), var(--thai-gold));
+      color: #1f2937;
+      box-shadow: 0 14px 22px rgba(201,162,39,0.26);
+    }
+
+    .grid{ display:block; }
+    .day-selector{
+      display:flex; overflow-x:auto;
+      padding: 0 15px 20px; gap: 10px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .day-selector::-webkit-scrollbar { display:none; }
+
+    .daybtn{
+      flex: 0 0 118px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.88)),
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.035) 0 1px, transparent 1px 9px),
+        repeating-linear-gradient(0deg, rgba(17,24,39,0.03) 0 1px, transparent 1px 11px),
+        repeating-linear-gradient(45deg, rgba(201,162,39,0.06) 0 2px, transparent 2px 14px);
+      border: 1px solid rgba(201,162,39,0.28);
+      border-radius: 16px;
+      padding: 10px;
+      text-align:center;
+      cursor:pointer;
+      box-shadow: 0 14px 26px rgba(17,24,39,0.08);
+    }
+    .daybtn strong{
+      display:block;
+      font-family: var(--display);
+      font-size: 15px;
+      color: var(--thai-teal);
+    }
+    .daybtn small{ font-size: 11px; color: var(--muted); font-weight: 800; }
+    .daybtn.active{
+      background:
+        linear-gradient(180deg, rgba(15,118,110,0.96), rgba(15,118,110,0.84)),
+        repeating-linear-gradient(45deg,
+          rgba(231,207,134,0.18) 0 2px,
+          transparent 2px 10px
+        );
+      border-color: rgba(231,207,134,0.55);
+    }
+    .daybtn.active strong, .daybtn.active small{ color:#fff; }
+
+    .main-panel{ padding: 0 20px; }
+
+    .title-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:4px;
+    }
+    .title-left{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width: 0;
+    }
+    .title-text{
+      font-weight: 900;
+      font-size: 20px;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Badge base */
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-weight: 900;
+      font-size: 12px;
+      letter-spacing: .2px;
+      border: 1px solid rgba(201,162,39,0.34);
+      background: rgba(255,255,255,0.78);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 10px 20px rgba(17,24,39,0.08);
+      flex: 0 0 auto;
+    }
+    .badge i{
+      width: 14px;
+      height: 14px;
+      border-radius: 4px;
+      display:inline-block;
+      position: relative;
+      overflow:hidden;
+    }
+
+    /* Old Town: temple spire */
+    .badge.temple{ border-color: rgba(201,162,39,0.45); }
+    .badge.temple i{
+      background: linear-gradient(180deg, rgba(231,207,134,0.90), rgba(201,162,39,0.55));
+    }
+    .badge.temple i::before{
+      content:"";
+      position:absolute; inset:2px 3px 2px 3px;
+      background: linear-gradient(180deg, rgba(15,118,110,0.85), rgba(15,118,110,0.35));
+      clip-path: polygon(50% 0%, 66% 22%, 66% 100%, 34% 100%, 34% 22%);
+    }
+    .badge.temple i::after{
+      content:"";
+      position:absolute; left:50%; top:1px;
+      width:4px; height:4px;
+      transform: translateX(-50%);
+      background: rgba(180,35,24,0.85);
+      border-radius: 50%;
+    }
+
+    /* Riverside: wave */
+    .badge.river{ border-color: rgba(15,118,110,0.45); }
+    .badge.river i{
+      background: linear-gradient(180deg, rgba(15,118,110,0.30), rgba(15,118,110,0.12));
+    }
+    .badge.river i::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background: repeating-linear-gradient(90deg, rgba(15,118,110,0.55) 0 2px, transparent 2px 6px);
+      opacity: .55;
+      transform: rotate(12deg);
+    }
+    .badge.river i::after{
+      content:"";
+      position:absolute; left:-2px; right:-2px; bottom:2px; height:6px;
+      background: repeating-linear-gradient(90deg, rgba(201,162,39,0.55) 0 10px, transparent 10px 16px);
+      opacity:.35;
+    }
+
+    /* Outskirts: rail/market grid */
+    .badge.market{ border-color: rgba(180,35,24,0.35); }
+    .badge.market i{
+      background:
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.14) 0 1px, transparent 1px 5px),
+        repeating-linear-gradient(0deg, rgba(17,24,39,0.12) 0 1px, transparent 1px 6px),
+        linear-gradient(180deg, rgba(231,207,134,0.55), rgba(255,255,255,0.0));
+    }
+    .badge.market i::after{
+      content:"";
+      position:absolute; left:0; right:0; bottom:0; height:3px;
+      background: rgba(180,35,24,0.7);
+    }
+
+    /* Textile: ari/asok */
+    .badge.textile{ border-color: rgba(201,162,39,0.32); }
+    .badge.textile i{
+      background:
+        repeating-linear-gradient(45deg, rgba(201,162,39,0.22) 0 2px, transparent 2px 8px),
+        repeating-linear-gradient(-45deg, rgba(15,118,110,0.18) 0 2px, transparent 2px 9px),
+        linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    }
+
+    .section-header{
+      display:flex; align-items:center; gap:8px;
+      margin: 22px 0 12px;
+      position: relative;
+    }
+    .section-header span{
+      font-weight: 900;
+      font-size: 16px;
+      color: var(--thai-ink);
+    }
+    .section-header::after{
+      content:"";
+      flex:1;
+      height:2px;
+      margin-left: 10px;
+      border-radius:999px;
+      background: linear-gradient(90deg, rgba(201,162,39,0.55), rgba(15,118,110,0.35), transparent);
+    }
+    .dot{ width:8px; height:8px; border-radius: 999px; }
+
+    .timeline{ display:flex; flex-direction:column; gap:12px; }
+
+    .item-card{
+      position: relative;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90)),
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.02) 0 1px, transparent 1px 10px),
+        repeating-linear-gradient(0deg, rgba(17,24,39,0.018) 0 1px, transparent 1px 12px);
+      border: 1px solid rgba(201,162,39,0.38);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-tight);
+      overflow:hidden;
+      will-change: transform;
+    }
+    .item-card::before{
+      content:"";
+      position:absolute;
+      inset:10px;
+      border-radius: calc(var(--radius-xl) - 10px);
+      border: 1px dashed rgba(201,162,39,0.42);
+      pointer-events:none;
+      opacity: .95;
+    }
+    .item-card::after{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      border-radius: var(--radius-xl);
+      padding:1px;
+      background: linear-gradient(120deg, rgba(231,207,134,0.55), rgba(201,162,39,0.28), rgba(15,118,110,0.22));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      pointer-events:none;
+    }
+
+    .item-content{ display:grid; grid-template-columns: 70px 1fr; gap: 12px; padding: 15px; }
+    .time-tag{
+      background:
+        linear-gradient(180deg, rgba(231,207,134,0.28), rgba(231,207,134,0.18)),
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.04) 0 1px, transparent 1px 8px);
+      border: 1px solid rgba(201,162,39,0.22);
+      border-radius: 12px;
+      height: 36px;
+      display:grid; place-items:center;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-weight: 900;
+      color: var(--thai-ink);
+      font-size: 13px;
+    }
+
+    .what .w{ font-weight: 900; font-size: 16px; margin-bottom: 4px; color: var(--thai-ink); }
+    .what .d{ color: var(--muted); font-size: 13px; line-height: 1.55; }
+
+    .item-footer{
+      padding: 9px 15px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.70)),
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.02) 0 1px, transparent 1px 10px),
+        repeating-linear-gradient(45deg, rgba(201,162,39,0.05) 0 2px, transparent 2px 16px);
+      border-top: 1px solid rgba(201,162,39,0.22);
+      font-size: 11px;
+      font-weight: 900;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+    }
+    .footer-actions{ display:flex; gap:10px; align-items:center; }
+    .footer-actions a{ color: var(--thai-teal); text-decoration:none; font-weight: 900; }
+    .footer-actions a:nth-child(2){ color: var(--thai-red); }
+    .footer-actions a:hover{ text-decoration: underline; }
+
+    .trans-steps{
+      background: rgba(255,255,255,0.92);
+      border-radius: var(--radius-xl);
+      border: 1px solid rgba(201,162,39,0.20);
+      box-shadow: var(--shadow-soft);
+      padding: 5px 0;
+      overflow:hidden;
+    }
+    .t-step{
+      display:flex; gap: 12px;
+      padding: 12px 18px;
+      border-bottom: 1px solid rgba(0,0,0,0.03);
+    }
+    .t-step:last-child{ border-bottom:none; }
+    .t-n{
+      min-width: 22px; height: 22px; border-radius: 50%;
+      background: rgba(15,118,110,0.88);
+      color: #fff;
+      display:grid; place-items:center;
+      font-weight: 900; font-size: 11px;
+    }
+    .t-txt .a{ font-weight: 900; font-size: 13.5px; color: var(--thai-ink); display:block; }
+    .t-txt .b{ font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+
+    .meals-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    .meal-box{
+      background: rgba(255,255,255,0.92);
+      border-radius: var(--radius-lg);
+      padding: 15px;
+      border: 1px solid rgba(201,162,39,0.20);
+      box-shadow: 0 10px 22px rgba(17,24,39,0.06);
+      position: relative;
+      overflow:hidden;
+    }
+    .meal-type{
+      position:absolute; top:-8px; left:15px;
+      padding: 2px 10px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 900;
+      color: #fff;
+    }
+    .meal-box ul{ margin: 8px 0 0; padding-left: 18px; }
+    .meal-box li{ margin: 6px 0; font-size: 13.5px; }
+    .meal-item-link{ color: var(--thai-teal); font-weight: 900; text-decoration: underline; cursor:pointer; }
+
+    /* Today mode highlight */
+    .item-card.next{
+      outline: 2px solid rgba(201,162,39,0.45);
+      box-shadow: 0 18px 34px rgba(17,24,39,0.10), 0 14px 30px rgba(201,162,39,0.16);
+    }
+    .item-card.next .time-tag{
+      background:
+        linear-gradient(180deg, rgba(231,207,134,0.36), rgba(231,207,134,0.20)),
+        repeating-linear-gradient(90deg, rgba(17,24,39,0.04) 0 1px, transparent 1px 8px);
+      border-color: rgba(201,162,39,0.35);
+    }
+
+    /* Bottom sheet */
+    .overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.34); display:none; z-index:999; }
+    .sheet{
+      position:fixed; left:0; right:0; bottom:0;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.92)),
+        repeating-linear-gradient(45deg, rgba(201,162,39,0.05) 0 2px, transparent 2px 10px);
+      border-top: 7px solid var(--thai-gold);
+      border-radius: 26px 26px 0 0;
+      padding: 22px;
+      display:none;
+      z-index:1000;
+      max-height: 78vh;
+      overflow-y:auto;
+    }
+    .sheet.show, .overlay.show{ display:block; }
+    .sheet-title{
+      font-family: var(--display);
+      font-weight: 800;
+      font-size: 19px;
+      color: var(--thai-ink);
+      margin-bottom: 12px;
+      letter-spacing: .3px;
+    }
+    .sheet-desc{ font-size: 14.5px; line-height: 1.7; white-space: pre-line; color: #374151; }
+
+    /* Toast */
+    .toast{
+      position: fixed;
+      left: 50%;
+      bottom: 90px;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 10px 12px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 12px;
+      max-width: 85vw;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      z-index: 2000;
+    }
+
+    @media (min-width: 920px){
+      .grid{ display:grid; grid-template-columns: 240px 1fr; }
+      .day-selector{ flex-direction: column; position: sticky; top: 20px; height: auto; }
+      .meals-grid{ grid-template-columns: 1fr 1fr 1fr; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>BANGKOK TRIP</h1>
+    <div class="sub">Thai Textile Edition｜Today Mode｜查看/導航/複製</div>
+
+    <div class="hero-bar">
+      <span class="hero-badge">Sawasdee Bangkok</span>
+      <span class="hero-dot"></span>
+      <span class="hero-badge">BTS / MRT / Pier Ready</span>
+    </div>
+
+    <div style="max-width:740px;margin:10px auto 0;opacity:.9">
+      <svg viewBox="0 0 900 120" width="100%" height="54" aria-hidden="true">
+        <path d="M60 104h780" stroke="rgba(17,24,39,0.18)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M210 104V70l18-10 18 10v34" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="5" stroke-linejoin="round"/>
+        <path d="M450 104V42l30-18 30 18v62" fill="none" stroke="rgba(15,118,110,0.65)" stroke-width="6" stroke-linejoin="round"/>
+        <path d="M450 42l30-18 30 18" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="4" stroke-linecap="round"/>
+        <path d="M670 104V64l16-10 16 10v40" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="5" stroke-linejoin="round"/>
+        <circle cx="450" cy="22" r="6" fill="rgba(180,35,24,0.65)"/>
+      </svg>
+    </div>
+  </header>
+
+  <div class="search-container">
+    <div class="search-box">
+      <input id="q" placeholder="快速搜尋（可搜景點/餐廳/交通/備註）..." oninput="handleSearch()" />
+      <button id="todayBtn" class="pill primary" onclick="toggleTodayMode()">今天模式：開</button>
+      <button class="pill gold" onclick="openHomeDir()">回飯店</button>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="grid">
+      <div class="day-selector" id="daylist"></div>
+
+      <main class="main-panel">
+        <div class="title-row">
+          <div class="title-left">
+            <div id="mainTitle" class="title-text"></div>
+            <div id="dayBadge" class="badge temple" style="display:none;">
+              <i></i><span id="badgeText"></span>
+            </div>
+          </div>
+        </div>
+
+        <div id="mainNote" style="font-size: 12.5px; color: var(--muted); margin-bottom: 18px;"></div>
+        <div id="content"></div>
+      </main>
+    </div>
+  </div>
+
+  <div class="overlay" id="overlay" onclick="closeSheet()"></div>
+  <div class="sheet" id="sheet">
+    <div style="display:flex; justify-content:space-between; align-items:start; gap:10px;">
+      <div id="sheetTitle" class="sheet-title"></div>
+      <div style="display:flex; gap:8px;">
+        <button class="pill" onclick="openSheetView()">查看</button>
+        <button class="pill" onclick="copySheetQ()">複製</button>
+        <button class="pill primary" onclick="openSheetNav()">導航</button>
+        <button class="pill" onclick="closeSheet()">關閉</button>
+      </div>
+    </div>
+    <div id="sheetDesc" class="sheet-desc"></div>
+  </div>
+
+<script>
+'use strict';
+
+/* =========================
+   Utilities
+========================= */
+const toMapsSearch = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+const toMapsDir = (q) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}&travelmode=transit`;
+
+const formatDateZh = (iso) => {
+  const d = new Date(iso + 'T00:00:00');
+  const wk = ['日','一','二','三','四','五','六'][d.getDay()];
+  const m = d.getMonth() + 1;
+  const day = d.getDate();
+  return `${m}/${day}（${wk}）`;
+};
+
+const toast = (msg) => {
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .25s'; }, 900);
+  setTimeout(() => t.remove(), 1200);
+};
+
+const copyText = async (text) => {
+  try{
+    await navigator.clipboard.writeText(text);
+    toast(`已複製：${text}`);
+  }catch(e){
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    toast(`已複製：${text}`);
+  }
+};
+
+/* =========================
+   Places
+========================= */
+const HOME = {
+  name: "Metro Hotel Phahonyothin 35",
+  thai: "",
+  q: "Metro Hotel Phahonyothin 35, 168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900",
+  address: "168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900",
+  note: "巷內飯店；回程晚間注意巷口車流。Grab 最穩。",
+  access: { bts: "BTS（北區）", exit: "依導航", lastMile: "出站後 Grab 5–10 分鐘（視塞車）" }
+};
+
+const PLACES = {
+  BKK: {
+    name: "Suvarnabhumi Airport (BKK)",
+    thai: "ท่าอากาศยานสุวรรณภูมิ",
+    q: "Suvarnabhumi Airport (BKK)",
+    address: "Suvarnabhumi Airport",
+    note: "ARL 在地下一樓；換匯看 SuperRich 牌價再決定。",
+    access: { lastMile: "ARL 直達市區" }
+  },
+  HOME,
+
+  GRAND_PALACE: {
+    name: "The Grand Palace 大皇宮",
+    thai: "พระบรมมหาราชวัง",
+    q: "The Grand Palace Bangkok",
+    note: "服裝：長褲/過膝、遮肩；早去避人潮。",
+    access: { mrt: "MRT Sanam Chai", lastMile: "步行 10–15 分鐘" }
+  },
+  WAT_PHO: {
+    name: "Wat Pho 臥佛寺",
+    thai: "วัดโพธิ์",
+    q: "Wat Pho Bangkok",
+    note: "鞋子好穿脫；室內人多，輕裝。",
+    access: { mrt: "MRT Sanam Chai", lastMile: "步行 10–15 分鐘" }
+  },
+  WAT_ARUN: {
+    name: "Wat Arun 鄭王廟",
+    thai: "วัดอรุณราชวราราม",
+    q: "Wat Arun Bangkok",
+    note: "傍晚最好看；渡輪從 Tha Tien 一帶出發。",
+    access: { pier: "Tha Tien / Wat Arun ferry", lastMile: "渡輪 5 分鐘" }
+  },
+  YAOWARAT: {
+    name: "Yaowarat Chinatown 唐人街",
+    thai: "",
+    q: "Yaowarat Road Chinatown Bangkok",
+    note: "夜晚人潮猛：先鎖 2–3 家，不要硬鑽。",
+    access: { mrt: "MRT Wat Mangkon", lastMile: "出站即熱區" }
+  },
+
+  MAEKLONG: { name:"Maeklong Railway Market 美功鐵道市場", thai:"", q:"Maeklong Railway Market", note:"站位注意安全線；看火車時間。", access:{ lastMile:"多為包車/跟團" } },
+  DAMNOEN: { name:"Damnoen Saduak Floating Market 丹嫩莎朵水上市場", thai:"", q:"Damnoen Saduak Floating Market", note:"先問清楚船價/時間再上船。", access:{ lastMile:"多為包車/跟團" } },
+
+  TCDC: { name:"TCDC Bangkok 設計中心", thai:"", q:"TCDC Bangkok", note:"先看展區動線再逛書/選品。", access:{ lastMile:"依導航步行" } },
+
+  ICONSIAM: { name:"ICONSIAM", thai:"", q:"ICONSIAM", note:"SookSiam 室內市集，雨天超好用。", access:{ bts:"BTS Saphan Taksin (S6)", lastMile:"接駁船/叫車" } },
+
+  ICONSIAM_PIER4: {
+    name:"ICONSIAM 4號碼頭（Pier 4）",
+    thai:"",
+    q:"ICONSIAM Pier 4 Bangkok",
+    address:"ICONSIAM, Bangkok",
+    note:"先找遊船 Check-in 櫃台，再依指示到 Pier 4；建議提早 20–30 分鐘到。",
+    access:{ bts:"BTS Saphan Taksin (S6)", pier:"Pier 4", lastMile:"接駁船/步行依現場指示" }
+  },
+
+  ARI: { name:"Ari 文青區（BTS Ari）", thai:"", q:"Ari BTS Station Bangkok", note:"巷弄咖啡多，挑 1–2 間就好。", access:{ bts:"BTS Ari (N5)", lastMile:"步行" } },
+
+  MAKKHA_ASOKE: {
+    name:"Makkha Health & Spa（Heritage Asoke）",
+    thai:"",
+    q:"Makkha Health & Spa (Heritage Asoke)",
+    note:"建議預約；提前 10 分鐘到。按完去 Terminal 21 很順。",
+    access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit", lastMile:"步行 5–10 分鐘" }
+  },
+
+  TERMINAL21: {
+    name:"Terminal 21 Asok",
+    thai:"",
+    q:"Terminal 21 Asok",
+    note:"Pier 21 在 5F；先找座位再買。",
+    access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit", lastMile:"出站即到" }
+  },
+
+  PRANAKORN_BOAT: { name:"Pranakorn Boat Noodle 船麵", thai:"", q:"Pranakorn Boat Noodle Victory Monument Bangkok", note:"份量小，一人 4–6 碗起跳。", access:{ lastMile:"依導航" } },
+  GO_ANG: { name:"紅大哥海南雞飯 Go-Ang Pratunam", thai:"", q:"Go-Ang Pratunam Chicken Rice Bangkok", note:"尖峰排隊正常。", access:{ lastMile:"依導航" } },
+  ON_LOK_YUN: { name:"邢泰記早餐 On Lok Yun", thai:"", q:"On Lok Yun Bangkok", note:"老店節奏慢，放鬆吃。", access:{ lastMile:"依導航" } },
+  KRUAA_APSORN: { name:"Krua Apsorn 皇室料理", thai:"", q:"Krua Apsorn Bangkok", note:"蟹肉煎蛋必點。", access:{ lastMile:"依導航" } },
+  GUAY_JUB: { name:"Guay Jub Ouan Pochana（豬雜湯）", thai:"", q:"Guay Jub Ouan Pochana Bangkok", note:"胡椒味很重。", access:{ lastMile:"依導航" } },
+  YAOWARAT_TOAST: { name:"Yaowarat Toasted Bread（碳烤吐司）", thai:"", q:"Yaowarat toasted bread Bangkok", note:"爆漿偏甜，兩人分一份剛好。", access:{ lastMile:"依導航" } },
+  NANA_COFFEE: { name:"Nana Coffee Roasters", thai:"", q:"Nana Coffee Roasters Bangkok", note:"咖啡水準穩。", access:{ lastMile:"依導航" } },
+  OR_TOR_KOR: { name:"Or Tor Kor Market 頂級農夫市場", thai:"", q:"Or Tor Kor Market Bangkok", note:"水果現切超強；帶濕紙巾。", access:{ mrt:"MRT Kamphaeng Phet", lastMile:"步行" } },
+  PIER21: { name:"Pier 21 美食街", thai:"", q:"Pier 21 Food Court Terminal 21", note:"很擠：先卡座位。", access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit" } }
+};
+
+/* =========================
+   Itinerary (Day badges included)
+========================= */
+const itinerary = [
+  {
+    id: 1, day: 'DAY 1', date: '2026-02-09', title: '抵達曼谷：落地安頓',
+    tag: { type:'textile', text:'Base & Settle' },
+    note: '第一晚重點：ARL 進市區避塞車；最後一段用 Grab 直達飯店最省腦。',
+    timeline: [
+      { time: '18:10', place: PLACES.BKK, desc: '出關領行李；BKK 地下一樓可看 SuperRich 匯率再換。' },
+      { time: '20:00', place: PLACES.HOME, desc: '入住後先把「回飯店」當成固定快捷鍵。' }
+    ],
+    meals: {
+      breakfast: [{ place: PLACES.BKK, d: '機上輕食：先保體力。' }],
+      lunch: [{ place: PLACES.BKK, d: '機上主食：下機後再戰。' }],
+      dinner: [
+        { place: PLACES.PRANAKORN_BOAT, d: '勝利紀念碑名店；船麵份量小，建議一口氣點足。' },
+        { place: PLACES.GO_ANG, d: 'Go-Ang Pratunam：海南雞飯＋苦瓜排骨湯。' }
+      ]
+    },
+    transport: {
+      headline: '機場進市區（自用保命版）',
+      steps: [
+        { a: 'BKK → ARL', b: '地下一樓搭 ARL 到 Phaya Thai。' },
+        { a: '市區 → 飯店', b: '軌道交通到北區後，最後一段用 Grab 進 Phahonyothin 35 Alley。' }
+      ]
+    }
+  },
+
+  {
+    id: 2, day: 'DAY 2', date: '2026-02-10', title: '老城經典與鄭王廟',
+    tag: { type:'temple', text:'Old Town' },
+    note: '老城核心：早去大皇宮避人潮；鄭王廟傍晚光線最好。',
+    timeline: [
+      { time: '09:00', place: PLACES.GRAND_PALACE, desc: '大皇宮：服裝一定要過膝/遮肩。' },
+      { time: '13:00', place: PLACES.WAT_PHO, desc: '臥佛寺：室內人多，輕裝移動。' },
+      { time: '15:30', place: PLACES.WAT_ARUN, desc: '渡輪跨河看碎瓷尖塔；傍晚最美。' },
+      { time: '18:30', place: PLACES.YAOWARAT, desc: '唐人街：宵夜戰場，先鎖定 2–3 家就好。' }
+    ],
+    meals: {
+      breakfast: [{ place: PLACES.ON_LOK_YUN, d: '老式早餐＋煉乳咖啡，步調慢，別急。' }],
+      lunch: [{ place: PLACES.KRUAA_APSORN, d: '蟹肉煎蛋必點；尖峰排隊正常。' }],
+      dinner: [
+        { place: PLACES.GUAY_JUB, d: '胡椒香很重，熱熱喝很爽。' },
+        { place: PLACES.YAOWARAT_TOAST, d: '爆漿吐司偏甜，兩人分一份剛好。' }
+      ]
+    },
+    transport: {
+      headline: '老城區轉乘（不迷路寫法）',
+      steps: [
+        { a: '到老城', b: '先到 MRT Sanam Chai，步行到大皇宮/臥佛寺。' },
+        { a: '去鄭王廟', b: '到 Tha Tien 碼頭搭渡輪跨河。' },
+        { a: '去唐人街', b: 'MRT 到 Wat Mangkon（出站就進熱區）。' }
+      ]
+    }
+  },
+
+  {
+    id: 3, day: 'DAY 3', date: '2026-02-11', title: '郊區奇觀與休息',
+    tag: { type:'market', text:'Outskirts' },
+    note: '車程遠：回程塞車是常態，晚上務必留給休息或就近吃。',
+    timeline: [
+      { time: '08:30', place: PLACES.MAEKLONG, desc: '看火車穿市場；站位注意安全線。' },
+      { time: '12:00', place: PLACES.DAMNOEN, desc: '水上市場：先問清楚船價/時間再上船。' }
+    ],
+    meals: {
+      breakfast: [{ place: { name:'7-11 熱壓吐司', q:'7-Eleven Thailand', note:'快速補能量。' }, d: '泰國 7-11 必吃。' }],
+      lunch: [{ place: PLACES.DAMNOEN, d: '船上米粉湯：水上市場限定體驗。' }],
+      dinner: [{ place: { name:'晚餐（彈性）', q: HOME.q, note:'塞車回市區晚：直接飯店附近吃最穩。' }, d: '今天留彈性，別硬排遠點。' }]
+    },
+    transport: {
+      headline: '郊區往返',
+      steps: [
+        { a: '出發', b: '包車/跟團為主：早出發避塞。' },
+        { a: '回程', b: '塞車正常：回市區後先回飯店沖洗。' }
+      ]
+    }
+  },
+
+  {
+    id: 4, day: 'DAY 4', date: '2026-02-12', title: '設計曼谷與遊船',
+    tag: { type:'river', text:'Riverside' },
+    note: 'ICONSIAM 很大：下午以採買＋室內市集為主；遊船以 Pier 4 為準。',
+    timeline: [
+      { time: '11:00', place: PLACES.TCDC, desc: '設計中心：看展＋選品，節奏放慢。' },
+      { time: '15:00', place: PLACES.ICONSIAM, desc: 'SookSiam 室內市集：雨天也能逛。' },
+      { time: '19:45', place: PLACES.ICONSIAM_PIER4, desc: 'White Orchid Cruise 登船：先 Check-in 再去 Pier 4。' }
+    ],
+    meals: {
+      breakfast: [{ place: PLACES.HOME, d: '飯店早餐：慢慢吃，補血。' }],
+      lunch: [{ place: { name:'午餐（河岸/市中心彈性）', q:'Bang Rak Bangkok restaurants', note:'依當天動線就近吃最省腦。' }, d: '留彈性，避免為了吃硬拉車程。' }],
+      dinner: [{ place: PLACES.ICONSIAM, d: '先在 ICONSIAM 補點東西，遊船上再吃正餐。' }]
+    },
+    transport: {
+      headline: '河岸路線（可執行）',
+      steps: [
+        { a: '到 BTS Saphan Taksin', b: '先導航到 Saphan Taksin（S6）。' },
+        { a: '到 ICONSIAM', b: '接駁船或叫車直達 ICONSIAM。' },
+        { a: '登船', b: '到 Check-in → 再到 Pier 4。' }
+      ]
+    }
+  },
+
+  {
+    id: 5, day: 'DAY 5', date: '2026-02-13', title: '文青日常與歸國',
+    tag: { type:'textile', text:'Ari / Asok' },
+    note: '今天關鍵：SPA＋Terminal 21＋撤退路線。移動用軌道＋短程叫車。',
+    timeline: [
+      { time: '11:00', place: PLACES.ARI, desc: '文青巷弄：挑 1–2 間咖啡＋小店就好。' },
+      { time: '15:00', place: PLACES.MAKKHA_ASOKE, desc: '按完直接去 Terminal 21 吃晚餐最順。' },
+      { time: '18:00', place: PLACES.TERMINAL21, desc: 'Pier 21：先搶座位再買。' },
+      { time: '20:45', place: PLACES.BKK, desc: '走 ARL 撤退最穩；提早抓出發時間。' }
+    ],
+    meals: {
+      breakfast: [{ place: PLACES.NANA_COFFEE, d: '手沖/拿鐵都穩；別點太多甜。' }],
+      lunch: [{ place: PLACES.OR_TOR_KOR, d: '水果現切：買了就吃，別背太久。' }],
+      dinner: [{ place: PLACES.PIER21, d: '打拋豬＋飲料：簡單收尾。' }]
+    },
+    transport: {
+      headline: '歸國撤退（自用保命）',
+      steps: [
+        { a: 'Ari → Asok', b: 'BTS 到 Asok（或轉乘到 Asok）。' },
+        { a: '回飯店拿行李', b: `直接導航回 ${HOME.name}。` },
+        { a: '去 BKK', b: '走軌道到 Phaya Thai 轉 ARL 到 BKK。' }
+      ]
+    }
+  }
+];
+
+/* =========================
+   State
+========================= */
+let currentDayId = 2;
+let todayMode = true;
+let sheetPlace = null;
+
+/* =========================
+   Today Mode helpers
+========================= */
+const todayIso = () => new Date().toISOString().slice(0,10);
+const parseTimeOnDate = (iso, hhmm) => {
+  const [hh, mm] = hhmm.split(':').map(Number);
+  return new Date(`${iso}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00`);
+};
+const getNextIndexForDay = (dayObj) => {
+  const now = new Date();
+  const iso = todayIso();
+  const isToday = dayObj.date === iso;
+  if(!isToday) return 0;
+  for(let i=0;i<dayObj.timeline.length;i++){
+    const dt = parseTimeOnDate(iso, dayObj.timeline[i].time);
+    if(dt > now) return i;
+  }
+  return Math.max(0, dayObj.timeline.length - 1);
+};
+
+/* =========================
+   Sheet
+========================= */
+window.openMeal = (placeObj, desc) => {
+  sheetPlace = placeObj || null;
+  document.getElementById('sheetTitle').textContent = placeObj?.name || '';
+
+  const extra = [
+    placeObj?.thai ? `泰文：${placeObj.thai}` : '',
+    placeObj?.address ? `地址：${placeObj.address}` : '',
+    placeObj?.note ? `提示：${placeObj.note}` : '',
+    placeObj?.access?.bts ? `BTS：${placeObj.access.bts}` : '',
+    placeObj?.access?.mrt ? `MRT：${placeObj.access.mrt}` : '',
+    placeObj?.access?.exit ? `出口：${placeObj.access.exit}` : '',
+    placeObj?.access?.pier ? `碼頭：${placeObj.access.pier}` : '',
+    placeObj?.access?.lastMile ? `最後一段：${placeObj.access.lastMile}` : ''
+  ].filter(Boolean).join('\n');
+
+  document.getElementById('sheetDesc').textContent =
+    (desc || '') + (extra ? `\n\n${extra}` : '');
+
+  document.getElementById('sheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
+};
+
+window.openSheetNav = () => {
+  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
+  window.open(toMapsDir(q), '_blank', 'noopener');
+};
+window.openSheetView = () => {
+  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
+  window.open(toMapsSearch(q), '_blank', 'noopener');
+};
+window.copySheetQ = () => {
+  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
+  copyText(q);
+};
+window.closeSheet = () => {
+  sheetPlace = null;
+  document.getElementById('sheet').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
+};
+
+/* =========================
+   Render
+========================= */
+const renderAll = () => {
+  // Day list
+  const daylist = document.getElementById('daylist');
+  daylist.innerHTML = itinerary.map(d => `
+    <div class="daybtn ${d.id === currentDayId ? 'active' : ''}" onclick="selectDay(${d.id})">
+      <strong>${d.day}</strong><small>${formatDateZh(d.date)}</small>
+    </div>
+  `).join('');
+
+  const d = itinerary.find(x => x.id === currentDayId) || itinerary[0];
+  document.getElementById('mainTitle').textContent = `${d.day}｜${d.title}`;
+  document.getElementById('mainNote').textContent = d.note;
+
+  // --- Title badge ---
+  const badge = document.getElementById('dayBadge');
+  const badgeText = document.getElementById('badgeText');
+  if(d.tag && d.tag.type){
+    badge.style.display = 'inline-flex';
+    badge.className = `badge ${d.tag.type}`;
+    badgeText.textContent = d.tag.text || '';
+  }else{
+    badge.style.display = 'none';
+  }
+
+  let html = `
+    <div class="section-header">
+      <div class="dot" style="background:rgba(201,162,39,0.9)"></div>
+      <span>📍 行程卡（查看 / 導航 / 複製）</span>
+    </div>
+    <div class="timeline">
+  `;
+
+  d.timeline.forEach(it => {
+    const p = it.place || { name: it.what, q: it.q || it.what, thai: "", note: "", access:{} };
+    const q = p.q || p.name;
+
+    const subLine = [
+      p.thai ? `泰文：${p.thai}` : "",
+      p.access?.bts ? p.access.bts : "",
+      p.access?.mrt ? p.access.mrt : "",
+      p.access?.exit ? `Exit ${String(p.access.exit).replace(/Exit\s*/i,'')}` : "",
+      p.access?.pier ? p.access.pier : ""
+    ].filter(Boolean).join(" ｜ ");
+
+    const tipLine = p.note ? `提示：${p.note}` : "";
+
+    html += `
+      <div class="item-card">
+        <div class="item-content">
+          <div class="time-tag">${it.time}</div>
+          <div class="what">
+            <div class="w">${p.name}</div>
+            <div class="d">${it.desc}</div>
+            ${subLine ? `<div class="d" style="margin-top:6px;font-weight:900;color:#374151;">${subLine}</div>` : ``}
+            ${tipLine ? `<div class="d" style="margin-top:6px;">${tipLine}</div>` : ``}
+          </div>
+        </div>
+        <div class="item-footer">
+          <span style="color:var(--muted); font-weight:900;">快速操作</span>
+          <span class="footer-actions">
+            <a href="${toMapsSearch(q)}" target="_blank" rel="noopener">查看</a>
+            <a href="${toMapsDir(q)}" target="_blank" rel="noopener">導航</a>
+            <a href="javascript:void(0)" onclick="copyText('${q.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">複製</a>
+          </span>
+        </div>
+      </div>
+    `;
+  });
+
+  html += `</div>`;
+
+  // Transport
+  html += `
+    <div class="section-header">
+      <div class="dot" style="background:rgba(15,118,110,0.9)"></div>
+      <span>🚌 交通轉乘（可執行）</span>
+    </div>
+    <div class="trans-steps">
+      <div style="padding:15px 20px 5px; font-size:12px; font-weight:900; color:var(--thai-teal)">${d.transport.headline}</div>
+      ${d.transport.steps.map((s, i) => `
+        <div class="t-step">
+          <div class="t-n">${i+1}</div>
+          <div class="t-txt"><span class="a">${s.a}</span><span class="b">${s.b}</span></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+
+  // Meals
+  html += `
+    <div class="section-header">
+      <div class="dot" style="background:rgba(180,35,24,0.85)"></div>
+      <span>🍜 美食（點名字 → Sheet → 查看/導航/複製）</span>
+    </div>
+    <div class="meals-grid">
+  `;
+
+  const mTypes = [
+    {t:'早餐', k:'breakfast', c:'var(--thai-teal)'},
+    {t:'午餐', k:'lunch', c:'rgba(201,162,39,0.95)'},
+    {t:'晚餐', k:'rgba(180,35,24,0.95)', c:'rgba(180,35,24,0.95)'}
+  ];
+
+  // Fix dinner label + color cleanly
+  const mTypesFixed = [
+    {t:'早餐', k:'breakfast', c:'var(--thai-teal)'},
+    {t:'午餐', k:'lunch', c:'rgba(201,162,39,0.95)'},
+    {t:'晚餐', k:'dinner', c:'rgba(180,35,24,0.95)'}
+  ];
+
+  mTypesFixed.forEach(m => {
+    html += `
+      <div class="meal-box">
+        <div class="meal-type" style="background:${m.c}">${m.t}</div>
+        <ul>
+    `;
+    (d.meals[m.k] || []).forEach(item => {
+      const p = item.place || { name: item.n, q: item.q || item.n, note: "" };
+      const safePlace = JSON.stringify(p).replace(/</g,'\\u003c');
+      const safeDesc = (item.d || '').replace(/\\/g,'\\\\').replace(/'/g,"\\'").replace(/\n/g,'\\n');
+      html += `<li><span class="meal-item-link" onclick="openMeal(${safePlace}, '${safeDesc}')">${p.name}</span></li>`;
+    });
+    html += `</ul></div>`;
+  });
+
+  html += `</div>`;
+
+  document.getElementById('content').innerHTML = html;
+};
+
+window.selectDay = (id) => {
+  currentDayId = id;
+  todayMode = false;
+  syncTodayBtn();
+  renderAll();
+};
+
+const syncTodayBtn = () => {
+  const btn = document.getElementById('todayBtn');
+  btn.textContent = `今天模式：${todayMode ? '開' : '關'}`;
+  btn.classList.toggle('primary', todayMode);
+};
+
+window.toggleTodayMode = () => {
+  todayMode = !todayMode;
+  syncTodayBtn();
+  if(todayMode) applyTodayMode();
+  else renderAll();
+};
+
+window.openHomeDir = () => {
+  window.open(toMapsDir(HOME.q), '_blank', 'noopener');
+};
+
+/* =========================
+   Today Mode apply
+========================= */
+const applyTodayMode = () => {
+  if(!todayMode) return;
+
+  const iso = todayIso();
+  const found = itinerary.find(x => x.date === iso);
+  if(found){
+    currentDayId = found.id;
+  }
+  renderAll();
+
+  requestAnimationFrame(() => {
+    const dayObj = itinerary.find(x => x.id === currentDayId);
+    if(!dayObj) return;
+
+    const idx = getNextIndexForDay(dayObj);
+
+    // clear old next
+    document.querySelectorAll('.item-card.next').forEach(el => el.classList.remove('next'));
+
+    const cards = Array.from(document.querySelectorAll('.timeline .item-card'));
+    const target = cards[idx];
+    if(target){
+      target.classList.add('next');
+      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    // main note -> next stop summary (only if today exists)
+    if(dayObj.date === iso){
+      const it = dayObj.timeline[idx];
+      const p = it.place || { name: it.what, q: it.q || it.what };
+      const now = new Date();
+      const dt = parseTimeOnDate(iso, it.time);
+      const mins = Math.round((dt - now)/60000);
+      const eta = mins > 0 ? `約 ${mins} 分鐘後` : '就是現在/已過';
+      document.getElementById('mainNote').textContent =
+        `今天模式：下一站 ${it.time}｜${p.name}（${eta}）`;
+    }
+  });
+};
+
+/* =========================
+   Full-text search (results list)
+========================= */
+const placeText = (p) => {
+  if(!p) return '';
+  const acc = p.access || {};
+  return [
+    p.name, p.thai, p.q, p.address, p.note,
+    acc.bts, acc.mrt, acc.exit, acc.pier, acc.lastMile
+  ].filter(Boolean).join(' ');
+};
+
+const dayBlob = (d) => {
+  const tl = (d.timeline || []).map(x => `${x.time} ${placeText(x.place)} ${x.desc || ''}`).join(' ');
+  const tr = (d.transport?.steps || []).map(x => `${x.a} ${x.b}`).join(' ');
+  const ml = ['breakfast','lunch','dinner']
+    .flatMap(k => (d.meals?.[k] || []).map(x => `${placeText(x.place)} ${x.d || ''}`))
+    .join(' ');
+  return `${d.day} ${d.title} ${d.note} ${formatDateZh(d.date)} ${tl} ${tr} ${ml}`.toLowerCase();
+};
+
+window.handleSearch = () => {
+  const q = document.getElementById('q').value.trim().toLowerCase();
+  if(!q){
+    if(todayMode) applyTodayMode();
+    else renderAll();
+    return;
+  }
+
+  // while searching, disable today mode
+  todayMode = false;
+  syncTodayBtn();
+
+  const hits = itinerary
+    .map(d => ({ d, blob: dayBlob(d) }))
+    .filter(x => x.blob.includes(q))
+    .map(x => x.d);
+
+  if(hits.length === 0){
+    document.getElementById('content').innerHTML =
+      `<div style="padding:14px; color:var(--muted); font-weight:900;">找不到「${q}」相關內容</div>`;
+    return;
+  }
+
+  document.getElementById('content').innerHTML = `
+    <div class="section-header"><div class="dot" style="background:rgba(231,207,134,0.9)"></div><span>🔎 搜尋結果</span></div>
+    <div class="timeline">
+      ${hits.map(d => `
+        <div class="item-card" onclick="selectDay(${d.id})" style="cursor:pointer;">
+          <div class="item-content">
+            <div class="time-tag">${d.day}</div>
+            <div class="what">
+              <div class="w">${d.title}</div>
+              <div class="d">${formatDateZh(d.date)}｜${d.note}</div>
+            </div>
+          </div>
+          <div class="item-footer"><span style="color:var(--muted);font-weight:900;">點擊切換到這一天</span><span style="color:var(--thai-teal);font-weight:900;">↗</span></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+};
+
+/* =========================
+   Init
+========================= */
+window.onload = () => {
+  syncTodayBtn();
+  applyTodayMode();
+
+  const iso = todayIso();
+  const hasToday = itinerary.some(x => x.date === iso);
+  if(!hasToday){
+    renderAll();
+  }
+};
+</script>
+</body>
+</html>
