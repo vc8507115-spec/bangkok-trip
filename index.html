@@ -3,563 +3,521 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
-  <title>曼谷行程查詢｜自用 Today Mode（Thai Textile）</title>
-
-  <!-- Thai fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@600;800&family=Sarabun:wght@400;600;800&display=swap" rel="stylesheet">
-
+  <title>曼谷行程查詢｜Eason 自用版</title>
   <style>
     :root{
-      --bg: #fff6e8;
-      --bg2:#f7fbff;
+      --bg-start: #fff5f8;
+      --bg-end: #f0f7ff;
+      --card-bg: #ffffff;
+      --text: #2c3e50;
+      --muted: #7f8c8d;
 
-      --text:#1b2430;
-      --muted:#5f6b7a;
+      --accent: #7aa7ff;       /* 寶寶藍 */
+      --pink: #ffb7d2;         /* 草莓粉 */
+      --peach: #ffd8a8;        /* 蜜桃橘 */
+      --lavender: #d0c4ff;     /* 薰衣草紫 */
+      --mint: #b2f2bb;         /* 薄荷綠 */
+      --thai-teal: #1f9aa8;    /* 泰式青綠 */
+      --thai-gold: #c9a227;    /* 泰金 */
 
-      --thai-gold:#c9a227;     /* 寺廟金 */
-      --thai-gold2:#e7cf86;    /* 金箔亮 */
-      --thai-teal:#0f766e;     /* 孔雀藍 */
-      --thai-red:#b42318;      /* 朱紅 */
-      --thai-ink:#111827;
-
-      --card-bg:#ffffff;
-      --border: rgba(17,24,39,0.10);
-
-      --shadow-soft: 0 12px 34px rgba(17,24,39,0.10);
-      --shadow-tight: 0 10px 24px rgba(17,24,39,0.12);
-
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-
-      --sans: "Sarabun","PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
-      --display: "Kanit","PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
+      --border: rgba(31, 41, 55, 0.08);
+      --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
+      --shadow-strong: 0 12px 28px rgba(0,0,0,0.10);
+      --sans: "PingFang TC", "Noto Sans TC", system-ui, -apple-system, sans-serif;
     }
 
     *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
-
     body{
       margin:0;
       font-family:var(--sans);
       color:var(--text);
-      min-height:100vh;
-      overflow-x:hidden;
-
-      /* Thai textile (dense) background */
-      background:
-        radial-gradient(900px 460px at 18% 0%, rgba(201,162,39,0.12), transparent 62%),
-        radial-gradient(780px 420px at 92% 8%, rgba(15,118,110,0.14), transparent 58%),
-        radial-gradient(700px 380px at 70% 95%, rgba(180,35,24,0.10), transparent 60%),
-
-        repeating-linear-gradient(90deg,
-          rgba(17,24,39,0.04) 0px,
-          rgba(17,24,39,0.04) 1px,
-          transparent 1px,
-          transparent 8px
-        ),
-        repeating-linear-gradient(0deg,
-          rgba(17,24,39,0.035) 0px,
-          rgba(17,24,39,0.035) 1px,
-          transparent 1px,
-          transparent 10px
-        ),
-
-        repeating-linear-gradient(45deg,
-          rgba(15,118,110,0.05) 0px,
-          rgba(15,118,110,0.05) 2px,
-          transparent 2px,
-          transparent 12px
-        ),
-        repeating-linear-gradient(-45deg,
-          rgba(201,162,39,0.06) 0px,
-          rgba(201,162,39,0.06) 2px,
-          transparent 2px,
-          transparent 12px
-        ),
-
-        repeating-conic-gradient(
-          from 0deg at 50% 18%,
-          rgba(201,162,39,0.035) 0 7deg,
-          transparent 7deg 18deg
-        ),
-
-        linear-gradient(180deg, var(--bg) 0%, var(--bg2) 100%);
+      background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
+    /* ====== Thai-ish header ====== */
     header{
-      padding: 26px 20px 8px;
+      padding: 22px 16px 14px;
+      position: relative;
+      overflow: hidden;
       text-align:center;
     }
+    header::before{
+      content:"";
+      position:absolute; inset:-80px -80px auto -80px;
+      height: 220px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(201,162,39,0.35), transparent 55%),
+        radial-gradient(circle at 70% 35%, rgba(180,35,24,0.28), transparent 55%),
+        radial-gradient(circle at 50% 80%, rgba(31,154,168,0.18), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
+      filter: saturate(1.05);
+    }
+    header::after{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        repeating-linear-gradient(45deg,
+          rgba(201,162,39,0.10) 0px,
+          rgba(201,162,39,0.10) 2px,
+          rgba(255,255,255,0) 2px,
+          rgba(255,255,255,0) 10px
+        );
+      opacity: 0.22;
+      pointer-events:none;
+      mix-blend-mode: multiply;
+    }
+
+    .brand{
+      position: relative;
+      display:inline-flex;
+      flex-direction:column;
+      gap:6px;
+      padding: 10px 14px 12px;
+      border-radius: 22px;
+      border: 1px solid rgba(201,162,39,0.25);
+      background: rgba(255,255,255,0.60);
+      box-shadow: var(--shadow-soft);
+      backdrop-filter: blur(6px);
+    }
     h1{
-      margin:0;
-      font-family: var(--display);
-      font-size: 32px;
-      font-weight: 800;
-      letter-spacing: 1.2px;
-      color: var(--thai-ink);
-      text-shadow: 0 2px 0 rgba(231,207,134,0.45);
-      line-height: 1.05;
+      font-size: 24px;
+      font-weight: 950;
+      margin: 0;
+      letter-spacing: 1.6px;
+      background: linear-gradient(90deg, rgba(180,35,24,0.95), rgba(201,162,39,0.95), rgba(31,154,168,0.95));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
     .sub{
-      margin-top: 8px;
-      font-size: 13px;
-      font-weight: 800;
-      color: var(--muted);
+      color: #4b5563;
+      font-size: 12px;
+      font-weight: 700;
     }
-
-    .hero-bar{
-      margin: 14px auto 0;
-      max-width: 720px;
-      border-radius: 999px;
-      padding: 10px 14px;
-      background: rgba(255,255,255,0.80);
-      border: 1px solid rgba(201,162,39,0.35);
-      box-shadow: 0 14px 34px rgba(17,24,39,0.08);
+    .sub b{color:#111827}
+    .topline{
+      position:relative;
+      margin-top: 10px;
       display:flex;
-      align-items:center;
       justify-content:center;
       gap:10px;
+      flex-wrap:wrap;
     }
-    .hero-badge{
-      font-weight: 900;
+    .pill{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background:#fff;
+      box-shadow: var(--shadow-soft);
       font-size: 12px;
-      color: var(--thai-teal);
-      letter-spacing: .2px;
+      font-weight: 850;
+      color:#374151;
     }
-    .hero-dot{
-      width:6px;height:6px;border-radius:50%;
-      background: var(--thai-gold);
+    .pill small{font-weight:700; color:#6b7280}
+    .pill .dotx{width:8px;height:8px;border-radius:50%}
+    .pill button{
+      border:none;
+      background:transparent;
+      font: inherit;
+      cursor:pointer;
+      color: inherit;
+      padding:0;
     }
 
-    .wrap{max-width:1100px; margin:0 auto; padding-bottom: 60px;}
+    .wrap{max-width:1100px; margin:0 auto; padding-bottom: 70px;}
 
-    .search-container { padding: 0 20px 18px; }
+    .search-container{
+      padding: 0 16px 12px;
+    }
     .search-box{
       display:flex; align-items:center; gap:10px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.92), rgba(255,255,255,0.86)),
-        repeating-linear-gradient(90deg,
-          rgba(201,162,39,0.06) 0 10px,
-          transparent 10px 22px
-        );
-      border: 1px solid rgba(201,162,39,0.40);
-      border-radius: 999px;
-      padding: 10px 14px;
+      background:#fff;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 10px 12px;
       box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(8px);
     }
-    .search-box input{ all:unset; flex:1; font-size: 15px; color: var(--text); }
-
-    .pill{
+    .search-box input{
+      all: unset; flex:1; font-size: 14.5px; color: var(--text);
+    }
+    .search-box .btn{
       border:none;
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      cursor: pointer;
-      white-space: nowrap;
-      background: rgba(17,24,39,0.06);
-      color: var(--thai-ink);
-    }
-    .pill.primary{
-      background: linear-gradient(90deg, var(--thai-teal), #12a39a);
+      background: linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
       color:#fff;
-      box-shadow: 0 14px 22px rgba(15,118,110,0.22);
-    }
-    .pill.gold{
-      background: linear-gradient(90deg, var(--thai-gold2), var(--thai-gold));
-      color: #1f2937;
-      box-shadow: 0 14px 22px rgba(201,162,39,0.26);
+      font-weight: 900;
+      padding: 9px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      box-shadow: 0 8px 18px rgba(180,35,24,0.12);
+      white-space:nowrap;
     }
 
-    .grid{ display:block; }
+    .grid{
+      display:block;
+    }
+
     .day-selector{
       display:flex; overflow-x:auto;
-      padding: 0 15px 20px; gap: 10px;
+      padding: 0 12px 10px;
+      gap: 10px;
       -webkit-overflow-scrolling: touch;
     }
     .day-selector::-webkit-scrollbar { display:none; }
 
     .daybtn{
       flex: 0 0 118px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.94), rgba(255,255,255,0.88)),
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.035) 0 1px, transparent 1px 9px),
-        repeating-linear-gradient(0deg, rgba(17,24,39,0.03) 0 1px, transparent 1px 11px),
-        repeating-linear-gradient(45deg, rgba(201,162,39,0.06) 0 2px, transparent 2px 14px);
-      border: 1px solid rgba(201,162,39,0.28);
+      background:#fff;
+      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 10px;
+      padding: 10px 10px;
       text-align:center;
+      box-shadow: var(--shadow-soft);
       cursor:pointer;
-      box-shadow: 0 14px 26px rgba(17,24,39,0.08);
-    }
-    .daybtn strong{
-      display:block;
-      font-family: var(--display);
-      font-size: 15px;
-      color: var(--thai-teal);
-    }
-    .daybtn small{ font-size: 11px; color: var(--muted); font-weight: 800; }
-    .daybtn.active{
-      background:
-        linear-gradient(180deg, rgba(15,118,110,0.96), rgba(15,118,110,0.84)),
-        repeating-linear-gradient(45deg,
-          rgba(231,207,134,0.18) 0 2px,
-          transparent 2px 10px
-        );
-      border-color: rgba(231,207,134,0.55);
-    }
-    .daybtn.active strong, .daybtn.active small{ color:#fff; }
-
-    .main-panel{ padding: 0 20px; }
-
-    .title-row{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:4px;
-    }
-    .title-left{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      min-width: 0;
-    }
-    .title-text{
-      font-weight: 900;
-      font-size: 20px;
-      color: var(--text);
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    /* Badge base */
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      font-weight: 900;
-      font-size: 12px;
-      letter-spacing: .2px;
-      border: 1px solid rgba(201,162,39,0.34);
-      background: rgba(255,255,255,0.78);
-      backdrop-filter: blur(8px);
-      box-shadow: 0 10px 20px rgba(17,24,39,0.08);
-      flex: 0 0 auto;
-    }
-    .badge i{
-      width: 14px;
-      height: 14px;
-      border-radius: 4px;
-      display:inline-block;
-      position: relative;
+      position:relative;
       overflow:hidden;
     }
-
-    /* Old Town: temple spire */
-    .badge.temple{ border-color: rgba(201,162,39,0.45); }
-    .badge.temple i{
-      background: linear-gradient(180deg, rgba(231,207,134,0.90), rgba(201,162,39,0.55));
-    }
-    .badge.temple i::before{
+    .daybtn::before{
       content:"";
-      position:absolute; inset:2px 3px 2px 3px;
-      background: linear-gradient(180deg, rgba(15,118,110,0.85), rgba(15,118,110,0.35));
-      clip-path: polygon(50% 0%, 66% 22%, 66% 100%, 34% 100%, 34% 22%);
-    }
-    .badge.temple i::after{
-      content:"";
-      position:absolute; left:50%; top:1px;
-      width:4px; height:4px;
-      transform: translateX(-50%);
-      background: rgba(180,35,24,0.85);
-      border-radius: 50%;
-    }
-
-    /* Riverside: wave */
-    .badge.river{ border-color: rgba(15,118,110,0.45); }
-    .badge.river i{
-      background: linear-gradient(180deg, rgba(15,118,110,0.30), rgba(15,118,110,0.12));
-    }
-    .badge.river i::before{
-      content:"";
-      position:absolute; inset:-2px;
-      background: repeating-linear-gradient(90deg, rgba(15,118,110,0.55) 0 2px, transparent 2px 6px);
-      opacity: .55;
-      transform: rotate(12deg);
-    }
-    .badge.river i::after{
-      content:"";
-      position:absolute; left:-2px; right:-2px; bottom:2px; height:6px;
-      background: repeating-linear-gradient(90deg, rgba(201,162,39,0.55) 0 10px, transparent 10px 16px);
-      opacity:.35;
-    }
-
-    /* Outskirts: rail/market grid */
-    .badge.market{ border-color: rgba(180,35,24,0.35); }
-    .badge.market i{
+      position:absolute; inset:-20px -30px auto -30px;
+      height: 68px;
       background:
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.14) 0 1px, transparent 1px 5px),
-        repeating-linear-gradient(0deg, rgba(17,24,39,0.12) 0 1px, transparent 1px 6px),
-        linear-gradient(180deg, rgba(231,207,134,0.55), rgba(255,255,255,0.0));
+        radial-gradient(circle at 25% 40%, rgba(201,162,39,0.20), transparent 60%),
+        radial-gradient(circle at 75% 35%, rgba(180,35,24,0.16), transparent 62%),
+        radial-gradient(circle at 55% 90%, rgba(31,154,168,0.10), transparent 60%);
+      opacity:.9;
     }
-    .badge.market i::after{
-      content:"";
-      position:absolute; left:0; right:0; bottom:0; height:3px;
-      background: rgba(180,35,24,0.7);
-    }
+    .daybtn strong{display:block; font-size: 14.5px; color: var(--thai-teal); font-weight: 950; position:relative}
+    .daybtn small{font-size: 11px; color: #6b7280; font-weight: 800; position:relative}
 
-    /* Textile: ari/asok */
-    .badge.textile{ border-color: rgba(201,162,39,0.32); }
-    .badge.textile i{
-      background:
-        repeating-linear-gradient(45deg, rgba(201,162,39,0.22) 0 2px, transparent 2px 8px),
-        repeating-linear-gradient(-45deg, rgba(15,118,110,0.18) 0 2px, transparent 2px 9px),
-        linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    .daybtn.active{
+      background: linear-gradient(135deg, rgba(180,35,24,0.92), rgba(201,162,39,0.88));
+      border-color: rgba(201,162,39,0.45);
+      box-shadow: var(--shadow-strong);
+      transform: translateY(-1px);
+    }
+    .daybtn.active strong, .daybtn.active small{color:#fff}
+
+    .main-panel{padding: 0 16px;}
+
+    .meta-title{
+      font-weight: 950;
+      font-size: 19px;
+      margin: 6px 0 2px;
+      letter-spacing: .2px;
+    }
+    .meta-note{
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 14px;
+      line-height: 1.55;
     }
 
     .section-header{
-      display:flex; align-items:center; gap:8px;
-      margin: 22px 0 12px;
-      position: relative;
+      display:flex; align-items:center; gap: 10px;
+      margin: 18px 0 10px;
     }
     .section-header span{
-      font-weight: 900;
+      font-weight: 950;
       font-size: 16px;
-      color: var(--thai-ink);
+      color: #111827;
+      letter-spacing: .2px;
     }
-    .section-header::after{
-      content:"";
-      flex:1;
-      height:2px;
-      margin-left: 10px;
-      border-radius:999px;
-      background: linear-gradient(90deg, rgba(201,162,39,0.55), rgba(15,118,110,0.35), transparent);
+    .dot{width: 9px; height: 9px; border-radius: 50%;}
+    .divider{
+      height:1px;
+      background: rgba(17,24,39,0.06);
+      margin: 16px 0 4px;
     }
-    .dot{ width:8px; height:8px; border-radius: 999px; }
 
-    .timeline{ display:flex; flex-direction:column; gap:12px; }
-
+    .timeline{display:flex; flex-direction:column; gap: 12px;}
     .item-card{
-      position: relative;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.90)),
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.02) 0 1px, transparent 1px 10px),
-        repeating-linear-gradient(0deg, rgba(17,24,39,0.018) 0 1px, transparent 1px 12px);
-      border: 1px solid rgba(201,162,39,0.38);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow-tight);
+      background:#fff;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      text-decoration:none;
+      color: inherit;
+      display:block;
       overflow:hidden;
       will-change: transform;
+      position:relative;
     }
     .item-card::before{
       content:"";
-      position:absolute;
-      inset:10px;
-      border-radius: calc(var(--radius-xl) - 10px);
-      border: 1px dashed rgba(201,162,39,0.42);
-      pointer-events:none;
-      opacity: .95;
-    }
-    .item-card::after{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      border-radius: var(--radius-xl);
-      padding:1px;
-      background: linear-gradient(120deg, rgba(231,207,134,0.55), rgba(201,162,39,0.28), rgba(15,118,110,0.22));
-      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-      -webkit-mask-composite: xor;
-              mask-composite: exclude;
-      pointer-events:none;
-    }
-
-    .item-content{ display:grid; grid-template-columns: 70px 1fr; gap: 12px; padding: 15px; }
-    .time-tag{
+      position:absolute; inset:0;
       background:
-        linear-gradient(180deg, rgba(231,207,134,0.28), rgba(231,207,134,0.18)),
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.04) 0 1px, transparent 1px 8px);
-      border: 1px solid rgba(201,162,39,0.22);
+        radial-gradient(circle at 20% 20%, rgba(201,162,39,0.10), transparent 55%),
+        radial-gradient(circle at 80% 30%, rgba(180,35,24,0.08), transparent 60%);
+      opacity: .75;
+      pointer-events:none;
+    }
+    .item-card:active{transform: scale(0.997);}
+
+    .item-content{
+      position:relative;
+      display:grid;
+      grid-template-columns: 72px 1fr;
+      gap: 12px;
+      padding: 15px;
+    }
+    .time-tag{
+      background: rgba(31,154,168,0.10);
+      border: 1px solid rgba(31,154,168,0.18);
       border-radius: 12px;
-      height: 36px;
+      height: 38px;
       display:grid; place-items:center;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      font-weight: 900;
-      color: var(--thai-ink);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-weight: 950;
+      color: rgba(31,154,168,0.98);
       font-size: 13px;
     }
-
-    .what .w{ font-weight: 900; font-size: 16px; margin-bottom: 4px; color: var(--thai-ink); }
-    .what .d{ color: var(--muted); font-size: 13px; line-height: 1.55; }
-
+    .what .w{
+      font-weight: 950;
+      font-size: 15.5px;
+      margin-bottom: 4px;
+      color:#111827;
+    }
+    .what .d{
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.5;
+    }
     .item-footer{
-      padding: 9px 15px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.70)),
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.02) 0 1px, transparent 1px 10px),
-        repeating-linear-gradient(45deg, rgba(201,162,39,0.05) 0 2px, transparent 2px 16px);
-      border-top: 1px solid rgba(201,162,39,0.22);
+      position:relative;
+      padding: 9px 14px;
+      background: rgba(249,250,251,0.85);
+      border-top: 1px solid rgba(17,24,39,0.06);
       font-size: 11px;
       font-weight: 900;
+      color: rgba(31,154,168,0.95);
       display:flex;
-      justify-content:space-between;
+      justify-content: space-between;
       align-items:center;
-      gap:10px;
     }
-    .footer-actions{ display:flex; gap:10px; align-items:center; }
-    .footer-actions a{ color: var(--thai-teal); text-decoration:none; font-weight: 900; }
-    .footer-actions a:nth-child(2){ color: var(--thai-red); }
-    .footer-actions a:hover{ text-decoration: underline; }
 
     .trans-steps{
-      background: rgba(255,255,255,0.92);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(201,162,39,0.20);
+      background:#fff;
+      border-radius: 18px;
+      border: 1px solid var(--border);
       box-shadow: var(--shadow-soft);
-      padding: 5px 0;
+      padding: 6px 0;
       overflow:hidden;
+      position:relative;
     }
+    .trans-steps::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(circle at 15% 25%, rgba(201,162,39,0.10), transparent 56%),
+        radial-gradient(circle at 75% 15%, rgba(180,35,24,0.06), transparent 65%),
+        radial-gradient(circle at 60% 95%, rgba(31,154,168,0.06), transparent 70%);
+      opacity: .75;
+      pointer-events:none;
+    }
+    .trans-steps > *{position:relative;}
     .t-step{
       display:flex; gap: 12px;
-      padding: 12px 18px;
-      border-bottom: 1px solid rgba(0,0,0,0.03);
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(17,24,39,0.06);
     }
-    .t-step:last-child{ border-bottom:none; }
+    .t-step:last-child{border-bottom:none;}
     .t-n{
-      min-width: 22px; height: 22px; border-radius: 50%;
-      background: rgba(15,118,110,0.88);
-      color: #fff;
+      min-width: 22px; height: 22px;
+      border-radius: 50%;
+      background: rgba(201,162,39,0.95);
+      color:#fff;
       display:grid; place-items:center;
-      font-weight: 900; font-size: 11px;
+      font-weight: 950;
+      font-size: 11px;
+      margin-top: 1px;
+      box-shadow: 0 8px 14px rgba(201,162,39,0.18);
     }
-    .t-txt .a{ font-weight: 900; font-size: 13.5px; color: var(--thai-ink); display:block; }
-    .t-txt .b{ font-size: 12px; color: var(--muted); margin-top: 2px; line-height: 1.45; }
+    .t-txt .a{font-weight: 900; font-size: 13.5px; color:#111827; display:block;}
+    .t-txt .b{font-size: 12px; color:#6b7280; margin-top: 2px; line-height: 1.45;}
 
-    .meals-grid{ display:grid; grid-template-columns: 1fr; gap:12px; }
+    /* ===== Meals ===== */
+    .meals-grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
     .meal-box{
-      background: #fff;
-      border-radius: 15px;
-      padding: 18px 15px 15px;   /* 上方多留空間給 badge */
+      background:#fff;
+      border-radius: 16px;
+      padding: 18px 15px 15px;   /* FIX: give space for badge */
       border: 1px solid var(--border);
-      position: relative;
-      overflow: visible;          /* 保險：避免被裁切 */
-}
-
-.meal-type {
-  position: absolute;
-  top: 10px;                  /* 不要負值，改放卡片內 */
-  left: 15px;
-  padding: 4px 10px;
-  border-radius: 999px;       /* 更像 badge */
-  font-size: 10px;
-  font-weight: 900;
-  color: #fff;
-  line-height: 1;             /* 避免字被切 */
-}
+      position:relative;
+      overflow: visible;          /* FIX: avoid clipping */
+      box-shadow: var(--shadow-soft);
     }
-    .meal-box ul{ margin: 8px 0 0; padding-left: 18px; }
-    .meal-box li{ margin: 6px 0; font-size: 13.5px; }
-    .meal-item-link{ color: var(--thai-teal); font-weight: 900; text-decoration: underline; cursor:pointer; }
-
-    /* Today mode highlight */
-    .item-card.next{
-      outline: 2px solid rgba(201,162,39,0.45);
-      box-shadow: 0 18px 34px rgba(17,24,39,0.10), 0 14px 30px rgba(201,162,39,0.16);
+    .meal-type{
+      position:absolute;
+      top: 10px;                 /* FIX: keep inside card */
+      left: 15px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 10px;
+      font-weight: 950;
+      color:#fff;
+      line-height: 1;
+      letter-spacing: .4px;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.10);
     }
-    .item-card.next .time-tag{
-      background:
-        linear-gradient(180deg, rgba(231,207,134,0.36), rgba(231,207,134,0.20)),
-        repeating-linear-gradient(90deg, rgba(17,24,39,0.04) 0 1px, transparent 1px 8px);
-      border-color: rgba(201,162,39,0.35);
+    .meal-box ul{margin: 12px 0 0; padding-left: 18px;}
+    .meal-box li{margin: 8px 0; font-size: 13.5px; line-height: 1.45;}
+    .meal-item-link{
+      color: rgba(31,154,168,0.98);
+      font-weight: 950;
+      text-decoration: underline;
+      cursor:pointer;
+    }
+    .meal-box .d{
+      color:#6b7280;
+      font-size: 12.5px;
+      margin-top: 4px;
     }
 
-    /* Bottom sheet */
-    .overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.34); display:none; z-index:999; }
+    /* ===== Overlay sheet ===== */
+    .overlay{
+      position:fixed; inset:0;
+      background: rgba(0,0,0,0.35);
+      display:none;
+      z-index: 999;
+    }
     .sheet{
       position:fixed; left:0; right:0; bottom:0;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.92)),
-        repeating-linear-gradient(45deg, rgba(201,162,39,0.05) 0 2px, transparent 2px 10px);
-      border-top: 7px solid var(--thai-gold);
-      border-radius: 26px 26px 0 0;
-      padding: 22px;
+      background:#fff;
+      border-top: 6px solid rgba(201,162,39,0.92);
+      border-radius: 24px 24px 0 0;
+      padding: 18px 16px 22px;
       display:none;
-      z-index:1000;
+      z-index: 1000;
       max-height: 78vh;
-      overflow-y:auto;
+      overflow-y: auto;
+      box-shadow: 0 -20px 40px rgba(0,0,0,0.16);
     }
-    .sheet.show, .overlay.show{ display:block; }
+    .sheet.show, .overlay.show{display:block;}
     .sheet-title{
-      font-family: var(--display);
-      font-weight: 800;
-      font-size: 19px;
-      color: var(--thai-ink);
-      margin-bottom: 12px;
-      letter-spacing: .3px;
+      font-weight: 950;
+      font-size: 18px;
+      color:#111827;
+      margin-bottom: 10px;
+      line-height: 1.25;
     }
-    .sheet-desc{ font-size: 14.5px; line-height: 1.7; white-space: pre-line; color: #374151; }
-
-    /* Toast */
-    .toast{
-      position: fixed;
-      left: 50%;
-      bottom: 90px;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,0.75);
-      color: #fff;
+    .sheet-desc{
+      font-size: 14px;
+      line-height: 1.75;
+      white-space: pre-line;
+      color:#374151;
+    }
+    .sheet-top{
+      display:flex;
+      justify-content: space-between;
+      align-items:flex-start;
+      gap:10px;
+    }
+    .closebtn{
+      border:none;
+      background: rgba(31,154,168,0.10);
+      color: rgba(31,154,168,0.98);
+      font-weight: 950;
+      padding: 8px 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .sheet-btns{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin: 10px 0 14px;
+    }
+    .sheet-btns a, .sheet-btns button{
+      border:none;
+      background:#f3f4f6;
+      color:#111827;
+      font-weight: 950;
       padding: 10px 12px;
-      border-radius: 12px;
+      border-radius: 14px;
+      cursor:pointer;
+      text-decoration:none;
+      font-size: 12.5px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+    }
+    .sheet-btns a.primary{
+      background: linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
+      color:#fff;
+      box-shadow: 0 12px 22px rgba(180,35,24,0.12);
+    }
+
+    /* ===== Toast ===== */
+    .toast{
+      position:fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: 18px;
+      background: rgba(17,24,39,0.92);
+      color:#fff;
+      padding: 10px 12px;
+      border-radius: 14px;
       font-weight: 900;
-      font-size: 12px;
-      max-width: 85vw;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      z-index: 2000;
+      font-size: 12.5px;
+      z-index: 1200;
+      display:none;
+      max-width: 92vw;
+      text-align:center;
     }
 
     @media (min-width: 920px){
-      .grid{ display:grid; grid-template-columns: 240px 1fr; }
-      .day-selector{ flex-direction: column; position: sticky; top: 20px; height: auto; }
-      .meals-grid{ grid-template-columns: 1fr 1fr 1fr; }
+      .grid{display:grid; grid-template-columns: 260px 1fr; gap: 6px;}
+      .day-selector{
+        flex-direction: column;
+        position: sticky;
+        top: 18px;
+        height: auto;
+        padding: 0 0 14px 10px;
+      }
+      .main-panel{padding: 0 18px;}
+      .meals-grid{grid-template-columns: 1fr 1fr 1fr;}
+      .search-container{padding: 0 18px 12px;}
+      header{padding: 24px 18px 14px;}
     }
   </style>
 </head>
 
 <body>
   <header>
-    <h1>BANGKOK TRIP</h1>
-    <div class="sub">Thai Textile Edition｜Today Mode｜查看/導航/複製</div>
-
-    <div class="hero-bar">
-      <span class="hero-badge">Sawasdee Bangkok</span>
-      <span class="hero-dot"></span>
-      <span class="hero-badge">BTS / MRT / Pier Ready</span>
+    <div class="brand">
+      <h1>BANGKOK TRIP</h1>
+      <div class="sub"><b>Eason</b> 自用行程｜泰式風格＋「上一站導航」版</div>
     </div>
-
-    <div style="max-width:740px;margin:10px auto 0;opacity:.9">
-      <svg viewBox="0 0 900 120" width="100%" height="54" aria-hidden="true">
-        <path d="M60 104h780" stroke="rgba(17,24,39,0.18)" stroke-width="4" stroke-linecap="round"/>
-        <path d="M210 104V70l18-10 18 10v34" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="5" stroke-linejoin="round"/>
-        <path d="M450 104V42l30-18 30 18v62" fill="none" stroke="rgba(15,118,110,0.65)" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M450 42l30-18 30 18" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="4" stroke-linecap="round"/>
-        <path d="M670 104V64l16-10 16 10v40" fill="none" stroke="rgba(201,162,39,0.65)" stroke-width="5" stroke-linejoin="round"/>
-        <circle cx="450" cy="22" r="6" fill="rgba(180,35,24,0.65)"/>
-      </svg>
+    <div class="topline">
+      <div class="pill" title="飯店">
+        <span class="dotx" style="background:rgba(31,154,168,0.95)"></span>
+        <span>🏨 Metro Hotel Phahonyothin 35</span>
+      </div>
+      <div class="pill" title="今天模式">
+        <span class="dotx" style="background:rgba(201,162,39,0.95)"></span>
+        <button onclick="goToday()">📌 今天模式 <small id="todayHint"></small></button>
+      </div>
+      <div class="pill" title="提示">
+        <span class="dotx" style="background:rgba(180,35,24,0.95)"></span>
+        <span>點餐廳 → Sheet →「從上一站導航」</span>
+      </div>
     </div>
   </header>
 
   <div class="search-container">
     <div class="search-box">
-      <input id="q" placeholder="快速搜尋（可搜景點/餐廳/交通/備註）..." oninput="handleSearch()" />
-      <button id="todayBtn" class="pill primary" onclick="toggleTodayMode()">今天模式：開</button>
-      <button class="pill gold" onclick="openHomeDir()">回飯店</button>
+      <input id="q" placeholder="快速搜尋：DAY / 景點 / 餐廳關鍵字…" oninput="handleSearch()" />
+      <button class="btn" onclick="goToday()">今天</button>
     </div>
   </div>
 
@@ -568,16 +526,8 @@
       <div class="day-selector" id="daylist"></div>
 
       <main class="main-panel">
-        <div class="title-row">
-          <div class="title-left">
-            <div id="mainTitle" class="title-text"></div>
-            <div id="dayBadge" class="badge temple" style="display:none;">
-              <i></i><span id="badgeText"></span>
-            </div>
-          </div>
-        </div>
-
-        <div id="mainNote" style="font-size: 12.5px; color: var(--muted); margin-bottom: 18px;"></div>
+        <div class="meta-title" id="mainTitle"></div>
+        <div class="meta-note" id="mainNote"></div>
         <div id="content"></div>
       </main>
     </div>
@@ -585,60 +535,307 @@
 
   <div class="overlay" id="overlay" onclick="closeSheet()"></div>
   <div class="sheet" id="sheet">
-    <div style="display:flex; justify-content:space-between; align-items:start; gap:10px;">
+    <div class="sheet-top">
       <div id="sheetTitle" class="sheet-title"></div>
-      <div style="display:flex; gap:8px;">
-        <button class="pill" onclick="openSheetView()">查看</button>
-        <button class="pill" onclick="copySheetQ()">複製</button>
-        <button class="pill primary" onclick="openSheetNav()">導航</button>
-        <button class="pill" onclick="closeSheet()">關閉</button>
-      </div>
+      <button class="closebtn" onclick="closeSheet()">關閉</button>
     </div>
+    <div id="sheetBtns" class="sheet-btns"></div>
     <div id="sheetDesc" class="sheet-desc"></div>
   </div>
+
+  <div class="toast" id="toast"></div>
 
 <script>
 'use strict';
 
-/* =========================
+/* ======================
+   Data
+====================== */
+const itinerary = [
+  {
+    id: 1,
+    day: 'DAY 1',
+    date: '2/9（一）',
+    title: '抵達曼谷：落地安頓',
+    note: '你約 20:00 到飯店：晚餐改成「近＋在地」；早餐/午餐在台北→ ×。',
+    timeline: [
+      { time: '18:10', what: 'Suvarnabhumi Airport (BKK)', desc: '出關領行李。建議在 BKK 地下一樓 ARL 站旁的 SuperRich 換匯。' },
+      { time: '20:00', what: 'Metro Hotel Phahonyothin 35', desc: '入住。地址：168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900' }
+    ],
+    transport: {
+      headline: '機場進市區詳細動線',
+      steps: [
+        { a: 'ARL Suvarnabhumi 站', b: '搭乘機場快線至終點 Phaya Thai。' },
+        { a: '轉乘 BTS 綠線', b: 'Phaya Thai → 往 Kasetsart 方向 → Ratchayothin 下車，步行回飯店。' }
+      ]
+    },
+    meals: {
+      breakfast: [{ place: { name: '×', q: '', note: '早餐在台北' }, d: '×' }],
+      lunch: [{ place: { name: '×', q: '', note: '午餐在台北' }, d: '×' }],
+      dinner: [
+        {
+          place: { name:'ตลาดนัดเมเจอร์ รัชโยธิน（Major Ratchayothin 夜市）', q:'ตลาดนัดเมเจอร์ รัชโยธิน', note:'主選｜近飯店生活圈，晚到也吃得到' },
+          d: '【必吃】Moo Ping 豬肉串＋糯米飯、Som Tam 青木瓜沙拉、烤魷魚/烤蝦、泰奶。\n【點餐】怕辣：เผ็ดน้อย（小辣）；不辣：ไม่เผ็ด。',
+          afterTime: '20:00'
+        },
+        {
+          place: { name:'Suki TeeNoi Gold（泰式壽喜鍋）', q:'Suki TeeNoi Gold Major Ratchayothin', note:'備案｜想坐著吃／深夜保底' },
+          d: '【必點】綜合肉盤＋蔬菜＋丸子類。\n【適合】落地累爆、只想快速補熱量與喝熱湯。',
+          afterTime: '20:00'
+        }
+      ]
+    }
+  },
+
+  {
+    id: 2,
+    day: 'DAY 2',
+    date: '2/10（二）',
+    title: '老城經典與鄭王廟',
+    note: '大皇宮服裝限制嚴格（短褲短裙不行）。晚餐就留在唐人街，不跟 Day1 重複。',
+    timeline: [
+      { time: '09:00', what: 'The Grand Palace', desc: '大皇宮。建議一早去避人潮與熱。' },
+      { time: '13:00', what: 'Wat Pho 臥佛寺', desc: '看巨大的室內金色臥佛。' },
+      { time: '15:30', what: 'Wat Arun 鄭王廟', desc: '搭渡輪跨河，欣賞白色碎瓷拼貼尖塔。' },
+      { time: '18:30', what: 'Yaowarat Chinatown', desc: '唐人街夜晚宵夜戰場。' }
+    ],
+    transport: {
+      headline: '老城區 BTS/MRT 詳細轉乘',
+      steps: [
+        { a: '前往老城', b: 'BTS Ratchayothin → Asok，轉 MRT Sukhumvit → Sanam Chai。' },
+        { a: '跨河渡輪', b: 'Tha Tien 碼頭搭渡輪到鄭王廟。' },
+        { a: '前往唐人街', b: 'MRT Sanam Chai → Wat Mangkon（唐人街）。' }
+      ]
+    },
+    meals: {
+      breakfast: [
+        {
+          place: { name:'On Lok Yun（老派早餐）', q:'On Lok Yun Bangkok', note:'早餐單點｜老城經典' },
+          d: '【必點】煎蛋＋吐司 set、泰式咖啡（點「หวานน้อย」少糖）。',
+          afterTime: '09:00'
+        }
+      ],
+      lunch: [
+        {
+          place: { name:'Krua Apsorn（泰式名店）', q:'Krua Apsorn Dinso', note:'主選｜老城一帶' },
+          d: '【必點】蟹肉炒蛋、ปูผัดพริกเหลือง（蟹肉炒黃辣椒/黃咖哩感）、冬蔭功。',
+          afterTime: '13:00'
+        },
+        {
+          place: { name:'Thip Samai（Pad Thai）', q:'Thip Samai Pad Thai', note:'備案｜快速穩定' },
+          d: '【必點】招牌 Pad Thai（蝦）、橘色鮮榨汁。',
+          afterTime: '13:00'
+        }
+      ],
+      dinner: [
+        {
+          place: { name:'Guay Jub Ouan Pochana（胡椒捲粉豬雜湯）', q:'Guay Jub Ouan Pochana', note:'主選｜唐人街宵夜王者' },
+          d: '【必點】ก๋วยจั๊บ（胡椒清湯捲粉）＋脆皮五花/內臟。\n【吃法】先喝湯暖胃，再加辣粉/醋調味。',
+          afterTime: '18:30'
+        },
+        {
+          place: { name:'Yaowarat Toasted Bread（碳烤吐司）', q:'Yaowarat Toasted Bread', note:'備案｜甜點收尾/第二攤' },
+          d: '【必點】爆漿吐司（奶油/巧克力/椰絲）。兩人分一份剛好。',
+          afterTime: '18:30'
+        }
+      ]
+    }
+  },
+
+  {
+    id: 3,
+    day: 'DAY 3',
+    date: '2/11（三）',
+    title: '郊區奇觀與 SPA',
+    note: '今日車程遠：建議跟團/包車。晚間 SPA 後晚餐以「好下飯但不虐胃」為主。',
+    timeline: [
+      { time: '08:30', what: 'Maeklong Railway Market', desc: '美功鐵道市場，看火車穿梭市場。' },
+      { time: '12:00', what: 'Damnoen Saduak Floating Market', desc: '丹嫩莎朵水上市場，搭船體驗水上交易。' },
+      { time: '19:30', what: 'Makkha Health & Spa (Heritage Asoke)', desc: '按摩放鬆（Asoke 分店）。' }
+    ],
+    transport: {
+      headline: '郊區往返指引',
+      steps: [
+        { a: '集合點移動', b: '建議 BTS 至 Siam/Asok 等集合點（依你訂的團）。' },
+        { a: '返程休息', b: '回市區後若塞車久，回飯店或直接去 SPA。' }
+      ]
+    },
+    meals: {
+      breakfast: [
+        {
+          place: { name:'Jok / Khao Tom（泰式粥店：就近找）', q:'โจ๊ก ใกล้ Phahonyothin 35', note:'早餐單點｜早出門吃熱的' },
+          d: '【必點】โจ๊ก（泰式粥）＋ไข่（蛋）；或ข้าวต้ม（湯泡飯）。\n【不辣】ไม่เผ็ด。',
+          afterTime: '08:30'
+        }
+      ],
+      lunch: [
+        {
+          place: { name:'Damnoen Saduak（市場現吃）', q:'Damnoen Saduak Floating Market', note:'主選｜水上市場攤位' },
+          d: '【必吃】船麵/米粉湯、烤蝦/烤魚、椰子冰。\n【選攤】跟著人多的攤走。',
+          afterTime: '12:00'
+        },
+        {
+          place: { name:'Maeklong（市場小吃）', q:'Maeklong Railway Market', note:'備案｜時間卡在美功' },
+          d: '【必吃】烤海鮮、椰子水、現煎小點。',
+          afterTime: '12:00'
+        }
+      ],
+      dinner: [
+        {
+          place: { name:'Zab One（伊善菜）', q:'Zab One Bangkok', note:'主選｜回市區後重口味補能量' },
+          d: '【必點】Som Tam、烤豬頸肉（คอหมูย่าง）、Larb＋糯米飯。\n【怕辣】เผ็ดน้อย。',
+          afterTime: '19:30'
+        },
+        {
+          place: { name:'Khao Tom（清淡宵夜粥店：就近）', q:'ข้าวต้ม ใกล้ Asok', note:'備案｜SPA後想清淡放空' },
+          d: '【必點】ข้าวต้ม＋炒菜/蛋。\n【適合】按摩後不想吃太刺激。',
+          afterTime: '19:30'
+        }
+      ]
+    }
+  },
+
+  {
+    id: 4,
+    day: 'DAY 4',
+    date: '2/12（四）',
+    title: '設計曼谷與遊船',
+    note: 'ICONSIAM 很大：上船前先吃小份量墊肚子。登船：ICONSIAM 4 號碼頭。',
+    timeline: [
+      { time: '11:00', what: 'TCDC Bangkok', desc: '設計中心（老郵局改建），古蹟×現代設計交會。' },
+      { time: '15:00', what: 'ICONSIAM', desc: '逛 SookSiam 美食區、採買伴手禮。' },
+      { time: '19:45', what: 'ICONSIAM Pier 4', desc: '4 號碼頭登船（White Orchid Cruise）。' }
+    ],
+    transport: {
+      headline: '河岸詳細路線',
+      steps: [
+        { a: 'BTS 轉線', b: 'Ratchayothin → Siam 轉 Silom 線至 Saphan Taksin。' },
+        { a: '搭接駁船', b: 'Saphan Taksin 站出站到 Sathorn Pier，搭接駁船到 ICONSIAM。' }
+      ]
+    },
+    meals: {
+      breakfast: [
+        {
+          place: { name:'Ari 咖啡館早餐（擇一就近）', q:'Ari cafe breakfast', note:'早餐單點｜都會日舒服路線' },
+          d: '【必點】可頌/吐司＋蛋＋咖啡（今天走很久，早餐要有蛋白質）。',
+          afterTime: '11:00'
+        }
+      ],
+      lunch: [
+        {
+          place: { name:'TCDC 周邊泰菜（就近）', q:'TCDC Bangkok restaurant', note:'主選｜不排隊優先' },
+          d: '【必點】打拋豬＋煎蛋、空心菜、冬蔭功。\n【原則】吃快、留力給 ICONSIAM。',
+          afterTime: '11:00'
+        },
+        {
+          place: { name:'Charoen Krung 簡餐（備用）', q:'Charoen Krung restaurant', note:'備案｜若周邊客滿' },
+          d: '【必點】炒河粉/咖哩/燒肉飯類。\n【原則】人多的店通常更穩。',
+          afterTime: '11:00'
+        }
+      ],
+      dinner: [
+        {
+          place: { name:'SookSiam（ICONSIAM 美食區）', q:'SookSiam ICONSIAM', note:'主選｜上船前先墊肚子（小份量）' },
+          d: '【必吃】芒果糯米飯、泰奶、湯麵/小吃拼。\n【策略】不要吃到爆撐，船上才舒服。',
+          afterTime: '19:45'
+        },
+        {
+          place: { name:'ICONSIAM 河岸餐廳（備用）', q:'ICONSIAM riverside restaurant', note:'備案｜想坐著吃/吹冷氣' },
+          d: '【必點】泰式烤雞/海鮮＋一份主食。\n【提醒】登船前時間抓鬆，Pier 4 建議提早到。',
+          afterTime: '19:45'
+        }
+      ]
+    }
+  },
+
+  {
+    id: 5,
+    day: 'DAY 5',
+    date: '2/13（五）',
+    title: '文青日常與歸國',
+    note: '週五市區更容易塞：軌道交通優先。Terminal 21 做最後晚餐/採買。',
+    timeline: [
+      { time: '11:00', what: 'Ari', desc: '文青區：咖啡廳、設計小店。' },
+      { time: '13:30', what: 'Or Tor Kor Market', desc: '頂級市場：水果、熟食很強。' },
+      { time: '18:00', what: 'Terminal 21 Asok', desc: '最後採買＆晚餐（Pier 21）。' },
+      { time: '20:45', what: 'Go to Airport', desc: '回飯店拿行李→機場快線/機場。' }
+    ],
+    transport: {
+      headline: '歸國撤退絕對路徑',
+      steps: [
+        { a: '前往 Asok', b: 'BTS 綠線到 Asok（Terminal 21）。' },
+        { a: '回飯店提行李', b: 'Asok → 回 Ratchayothin。' },
+        { a: '前往機場', b: 'Ratchayothin → Phaya Thai 轉 ARL 機場快線。' }
+      ]
+    },
+    meals: {
+      breakfast: [
+        {
+          place: { name:'Nana Coffee Roasters（Ari）', q:'Nana Coffee Roasters Ari', note:'早餐單點｜文青日吃漂亮' },
+          d: '【必點】手沖/拿鐵＋可頌/甜點（依當天想吃挑）。',
+          afterTime: '11:00'
+        }
+      ],
+      lunch: [
+        {
+          place: { name:'Or Tor Kor Market（頂級傳統市場）', q:'Or Tor Kor Market', note:'主選｜最曼谷、最強市場午餐' },
+          d: '【必吃】烤雞（Gai Yang）＋Som Tam、現切水果（季節）、椰子水。\n【策略】熟食攤人多就跟著買。',
+          afterTime: '13:30'
+        },
+        {
+          place: { name:'Chatuchak 周邊小館（備用）', q:'Chatuchak restaurant', note:'備案｜若市場太擠想坐下來' },
+          d: '【必點】打拋豬、綠咖哩雞、Pad Thai。\n【策略】坐下吃、快速撤退。',
+          afterTime: '13:30'
+        }
+      ],
+      dinner: [
+        {
+          place: { name:'Pier 21（Terminal 21 美食街）', q:'Pier 21 Terminal 21', note:'主選｜離境前 CP 值之王' },
+          d: '【必點】打拋豬飯、Pad Thai、豬腳飯（Kha Moo）、泰奶。\n【優點】便宜快、採買也順路。',
+          afterTime: '18:00'
+        },
+        {
+          place: { name:'BKK 機場 Food Court（備用）', q:'Suvarnabhumi Airport food court', note:'備案｜時間太趕就不要繞路' },
+          d: '【必點】簡單湯麵/咖哩飯＋飲料。\n【策略】保命用，不追名店。',
+          afterTime: '20:45'
+        }
+      ]
+    }
+  }
+];
+
+/* ======================
+   State
+====================== */
+let currentDayId = 2;
+
+/* ======================
    Utilities
-========================= */
-const toMapsSearch = (q) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
-const toMapsDir = (q) => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(q)}&travelmode=transit`;
-
-const formatDateZh = (iso) => {
-  const d = new Date(iso + 'T00:00:00');
-  const wk = ['日','一','二','三','四','五','六'][d.getDay()];
-  const m = d.getMonth() + 1;
-  const day = d.getDate();
-  return `${m}/${day}（${wk}）`;
-};
-
-const toast = (msg) => {
-  const t = document.createElement('div');
-  t.className = 'toast';
-  t.textContent = msg;
-  document.body.appendChild(t);
-  setTimeout(() => { t.style.opacity = '0'; t.style.transition = 'opacity .25s'; }, 900);
-  setTimeout(() => t.remove(), 1200);
+====================== */
+const toast = (msg, ms = 1600) => {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.style.display = 'block';
+  clearTimeout(toast._t);
+  toast._t = setTimeout(()=>{ el.style.display='none'; }, ms);
 };
 
 const copyText = async (text) => {
   try{
     await navigator.clipboard.writeText(text);
-    toast(`已複製：${text}`);
+    toast('已複製');
   }catch(e){
+    // fallback
     const ta = document.createElement('textarea');
     ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
     document.body.appendChild(ta);
     ta.select();
     document.execCommand('copy');
-    document.body.removeChild(ta);
-    toast(`已複製：${text}`);
+    ta.remove();
+    toast('已複製');
   }
 };
+
 // ===== Safe HTML helpers =====
 const escapeHtml = (s='') =>
   String(s).replaceAll('&','&amp;')
@@ -655,7 +852,9 @@ const escapeAttr = (s='') =>
            .replaceAll('>','&gt;')
            .replaceAll('\n','\\n');
 
-// ===== Place registry (avoid inline object in HTML) =====
+/* ======================
+   Place registry (avoid inline onclick objects)
+====================== */
 const placeRegistry = Object.create(null);
 let placeSeq = 1;
 
@@ -666,421 +865,101 @@ const registerPlace = (p) => {
   return key;
 };
 
-// ===== Event delegation for meal clicks (mobile-safe) =====
-document.addEventListener('click', (e) => {
-  const el = e.target.closest('[data-action="open-meal"]');
-  if(!el) return;
+/* ======================
+   Time helpers for "Mode B" (prev stop by meal)
+====================== */
+const timeToMin = (t) => {
+  if(!t) return null;
+  const m = String(t).match(/^(\d{1,2}):(\d{2})$/);
+  if(!m) return null;
+  const hh = Number(m[1]), mm = Number(m[2]);
+  return hh * 60 + mm;
+};
 
-  const key = el.getAttribute('data-placekey');
-  const desc = (el.getAttribute('data-desc') || '').replaceAll('\\n','\n');
-  const placeObj = placeRegistry[key];
+// Find last timeline stop where stop.time <= afterTime
+const getPrevStopByMeal = (dayObj, afterTime) => {
+  if(!dayObj?.timeline?.length) return null;
+  const target = timeToMin(afterTime);
+  if(target == null) return dayObj.timeline[0];
 
-  if(placeObj){
-    window.openMeal(placeObj, desc);
-  }else{
-    toast('找不到該美食資料（請重新整理頁面）');
+  let best = null;
+  for(const s of dayObj.timeline){
+    const tm = timeToMin(s.time);
+    if(tm == null) continue;
+    if(tm <= target) best = s;
   }
-});
-/* =========================
-   Places
-========================= */
-const HOME = {
-  name: "Metro Hotel Phahonyothin 35",
-  thai: "",
-  q: "Metro Hotel Phahonyothin 35, 168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900",
-  address: "168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900",
-  note: "巷內飯店；回程晚間注意巷口車流。Grab 最穩。",
-  access: { bts: "BTS（北區）", exit: "依導航", lastMile: "出站後 Grab 5–10 分鐘（視塞車）" }
+  return best || dayObj.timeline[0];
 };
 
-const PLACES = {
-  BKK: {
-    name: "Suvarnabhumi Airport (BKK)",
-    thai: "ท่าอากาศยานสุวรรณภูมิ",
-    q: "Suvarnabhumi Airport (BKK)",
-    address: "Suvarnabhumi Airport",
-    note: "ARL 在地下一樓；換匯看 SuperRich 牌價再決定。",
-    access: { lastMile: "ARL 直達市區" }
-  },
-  HOME,
-
-  GRAND_PALACE: {
-    name: "The Grand Palace 大皇宮",
-    thai: "พระบรมมหาราชวัง",
-    q: "The Grand Palace Bangkok",
-    note: "服裝：長褲/過膝、遮肩；早去避人潮。",
-    access: { mrt: "MRT Sanam Chai", lastMile: "步行 10–15 分鐘" }
-  },
-  WAT_PHO: {
-    name: "Wat Pho 臥佛寺",
-    thai: "วัดโพธิ์",
-    q: "Wat Pho Bangkok",
-    note: "鞋子好穿脫；室內人多，輕裝。",
-    access: { mrt: "MRT Sanam Chai", lastMile: "步行 10–15 分鐘" }
-  },
-  WAT_ARUN: {
-    name: "Wat Arun 鄭王廟",
-    thai: "วัดอรุณราชวราราม",
-    q: "Wat Arun Bangkok",
-    note: "傍晚最好看；渡輪從 Tha Tien 一帶出發。",
-    access: { pier: "Tha Tien / Wat Arun ferry", lastMile: "渡輪 5 分鐘" }
-  },
-  YAOWARAT: {
-    name: "Yaowarat Chinatown 唐人街",
-    thai: "",
-    q: "Yaowarat Road Chinatown Bangkok",
-    note: "夜晚人潮猛：先鎖 2–3 家，不要硬鑽。",
-    access: { mrt: "MRT Wat Mangkon", lastMile: "出站即熱區" }
-  },
-
-  MAEKLONG: { name:"Maeklong Railway Market 美功鐵道市場", thai:"", q:"Maeklong Railway Market", note:"站位注意安全線；看火車時間。", access:{ lastMile:"多為包車/跟團" } },
-  DAMNOEN: { name:"Damnoen Saduak Floating Market 丹嫩莎朵水上市場", thai:"", q:"Damnoen Saduak Floating Market", note:"先問清楚船價/時間再上船。", access:{ lastMile:"多為包車/跟團" } },
-
-  TCDC: { name:"TCDC Bangkok 設計中心", thai:"", q:"TCDC Bangkok", note:"先看展區動線再逛書/選品。", access:{ lastMile:"依導航步行" } },
-
-  ICONSIAM: { name:"ICONSIAM", thai:"", q:"ICONSIAM", note:"SookSiam 室內市集，雨天超好用。", access:{ bts:"BTS Saphan Taksin (S6)", lastMile:"接駁船/叫車" } },
-
-  ICONSIAM_PIER4: {
-    name:"ICONSIAM 4號碼頭（Pier 4）",
-    thai:"",
-    q:"ICONSIAM Pier 4 Bangkok",
-    address:"ICONSIAM, Bangkok",
-    note:"先找遊船 Check-in 櫃台，再依指示到 Pier 4；建議提早 20–30 分鐘到。",
-    access:{ bts:"BTS Saphan Taksin (S6)", pier:"Pier 4", lastMile:"接駁船/步行依現場指示" }
-  },
-
-  ARI: { name:"Ari 文青區（BTS Ari）", thai:"", q:"Ari BTS Station Bangkok", note:"巷弄咖啡多，挑 1–2 間就好。", access:{ bts:"BTS Ari (N5)", lastMile:"步行" } },
-
-  MAKKHA_ASOKE: {
-    name:"Makkha Health & Spa（Heritage Asoke）",
-    thai:"",
-    q:"Makkha Health & Spa (Heritage Asoke)",
-    note:"建議預約；提前 10 分鐘到。按完去 Terminal 21 很順。",
-    access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit", lastMile:"步行 5–10 分鐘" }
-  },
-
-  TERMINAL21: {
-    name:"Terminal 21 Asok",
-    thai:"",
-    q:"Terminal 21 Asok",
-    note:"Pier 21 在 5F；先找座位再買。",
-    access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit", lastMile:"出站即到" }
-  },
-
-  PRANAKORN_BOAT: { name:"Pranakorn Boat Noodle 船麵", thai:"", q:"Pranakorn Boat Noodle Victory Monument Bangkok", note:"份量小，一人 4–6 碗起跳。", access:{ lastMile:"依導航" } },
-  GO_ANG: { name:"紅大哥海南雞飯 Go-Ang Pratunam", thai:"", q:"Go-Ang Pratunam Chicken Rice Bangkok", note:"尖峰排隊正常。", access:{ lastMile:"依導航" } },
-  ON_LOK_YUN: { name:"邢泰記早餐 On Lok Yun", thai:"", q:"On Lok Yun Bangkok", note:"老店節奏慢，放鬆吃。", access:{ lastMile:"依導航" } },
-  KRUAA_APSORN: { name:"Krua Apsorn 皇室料理", thai:"", q:"Krua Apsorn Bangkok", note:"蟹肉煎蛋必點。", access:{ lastMile:"依導航" } },
-  GUAY_JUB: { name:"Guay Jub Ouan Pochana（豬雜湯）", thai:"", q:"Guay Jub Ouan Pochana Bangkok", note:"胡椒味很重。", access:{ lastMile:"依導航" } },
-  YAOWARAT_TOAST: { name:"Yaowarat Toasted Bread（碳烤吐司）", thai:"", q:"Yaowarat toasted bread Bangkok", note:"爆漿偏甜，兩人分一份剛好。", access:{ lastMile:"依導航" } },
-  NANA_COFFEE: { name:"Nana Coffee Roasters", thai:"", q:"Nana Coffee Roasters Bangkok", note:"咖啡水準穩。", access:{ lastMile:"依導航" } },
-  OR_TOR_KOR: { name:"Or Tor Kor Market 頂級農夫市場", thai:"", q:"Or Tor Kor Market Bangkok", note:"水果現切超強；帶濕紙巾。", access:{ mrt:"MRT Kamphaeng Phet", lastMile:"步行" } },
-  PIER21: { name:"Pier 21 美食街", thai:"", q:"Pier 21 Food Court Terminal 21", note:"很擠：先卡座位。", access:{ bts:"BTS Asok (E4)", mrt:"MRT Sukhumvit" } }
-};
-
-/* =========================
-   Itinerary (Day badges included)
-========================= */
-const itinerary = [
-  {
-    id: 1, day: 'DAY 1', date: '2026-02-09', title: '抵達曼谷：落地安頓',
-    tag: { type:'textile', text:'Base & Settle' },
-    note: '第一晚重點：ARL 進市區避塞車；最後一段用 Grab 直達飯店最省腦。',
-    timeline: [
-      { time: '18:10', place: PLACES.BKK, desc: '出關領行李；BKK 地下一樓可看 SuperRich 匯率再換。' },
-      { time: '20:00', place: PLACES.HOME, desc: '入住後先把「回飯店」當成固定快捷鍵。' }
-    ],
-    meals: {
-      breakfast: [{ place: PLACES.BKK, d: '機上輕食：先保體力。' }],
-      lunch: [{ place: PLACES.BKK, d: '機上主食：下機後再戰。' }],
-            dinner: [
-        { place: { name:'ตลาดนัดเมเจอร์ รัชโยธิน', q:'ตลาดนัดเมเจอร์ รัชโยธิน', note:'Major Ratchayothin 夜市攤位（20:00 仍可吃）' },
-          d: '【主選｜在地夜市】離飯店近、20:00 仍熱鬧。\n【建議吃法】Moo Ping 豬肉串＋糯米飯、Som Tam 青木瓜沙拉、烤海鮮/烤雞、泰奶。\n【走法】先到 Major Ratchayothin／BTS Ratchayothin 生活圈，看到排隊攤位就跟著買。' },
-        { place: { name:'Suki TeeNoi Gold (Major Ratchayothin)', q:'Suki TeeNoi Gold Major Ratchayothin', note:'深夜保底：想坐著吃／太晚到也吃得到' },
-          d: '【備案｜深夜保底】到夜市覺得太熱/太擠/想坐著吃就選它。\n【吃法】直接點肉盤＋蔬菜＋丸子類，湯底甜鹹泰式路線。' }
-      ],
-    },
-    transport: {
-      headline: '機場進市區（自用保命版）',
-      steps: [
-        { a: 'BKK → ARL', b: '地下一樓搭 ARL 到 Phaya Thai。' },
-        { a: '市區 → 飯店', b: '軌道交通到北區後，最後一段用 Grab 進 Phahonyothin 35 Alley。' }
-      ]
-    }
-  },
-
-  {
-    id: 2, day: 'DAY 2', date: '2026-02-10', title: '老城經典與鄭王廟',
-    tag: { type:'temple', text:'Old Town' },
-    note: '老城核心：早去大皇宮避人潮；鄭王廟傍晚光線最好。',
-    timeline: [
-      { time: '09:00', place: PLACES.GRAND_PALACE, desc: '大皇宮：服裝一定要過膝/遮肩。' },
-      { time: '13:00', place: PLACES.WAT_PHO, desc: '臥佛寺：室內人多，輕裝移動。' },
-      { time: '15:30', place: PLACES.WAT_ARUN, desc: '渡輪跨河看碎瓷尖塔；傍晚最美。' },
-      { time: '18:30', place: PLACES.YAOWARAT, desc: '唐人街：宵夜戰場，先鎖定 2–3 家就好。' }
-    ],
-    meals: {
-      breakfast: [{ place: PLACES.ON_LOK_YUN, d: '老式早餐＋煉乳咖啡，步調慢，別急。' }],
-      lunch: [{ place: PLACES.KRUAA_APSORN, d: '蟹肉煎蛋必點；尖峰排隊正常。' }],
-      dinner: [
-        { place: PLACES.GUAY_JUB, d: '胡椒香很重，熱熱喝很爽。' },
-        { place: PLACES.YAOWARAT_TOAST, d: '爆漿吐司偏甜，兩人分一份剛好。' }
-      ]
-    },
-    transport: {
-      headline: '老城區轉乘（不迷路寫法）',
-      steps: [
-        { a: '到老城', b: '先到 MRT Sanam Chai，步行到大皇宮/臥佛寺。' },
-        { a: '去鄭王廟', b: '到 Tha Tien 碼頭搭渡輪跨河。' },
-        { a: '去唐人街', b: 'MRT 到 Wat Mangkon（出站就進熱區）。' }
-      ]
-    }
-  },
-
-  {
-    id: 3, day: 'DAY 3', date: '2026-02-11', title: '郊區奇觀與休息',
-    tag: { type:'market', text:'Outskirts' },
-    note: '車程遠：回程塞車是常態，晚上務必留給休息或就近吃。',
-    timeline: [
-      { time: '08:30', place: PLACES.MAEKLONG, desc: '看火車穿市場；站位注意安全線。' },
-      { time: '12:00', place: PLACES.DAMNOEN, desc: '水上市場：先問清楚船價/時間再上船。' }
-    ],
-    meals: {
-      breakfast: [{ place: { name:'7-11 熱壓吐司', q:'7-Eleven Thailand', note:'快速補能量。' }, d: '泰國 7-11 必吃。' }],
-      lunch: [{ place: PLACES.DAMNOEN, d: '船上米粉湯：水上市場限定體驗。' }],
-      dinner: [{ place: { name:'晚餐（彈性）', q: HOME.q, note:'塞車回市區晚：直接飯店附近吃最穩。' }, d: '今天留彈性，別硬排遠點。' }]
-    },
-    transport: {
-      headline: '郊區往返',
-      steps: [
-        { a: '出發', b: '包車/跟團為主：早出發避塞。' },
-        { a: '回程', b: '塞車正常：回市區後先回飯店沖洗。' }
-      ]
-    }
-  },
-
-  {
-    id: 4, day: 'DAY 4', date: '2026-02-12', title: '設計曼谷與遊船',
-    tag: { type:'river', text:'Riverside' },
-    note: 'ICONSIAM 很大：下午以採買＋室內市集為主；遊船以 Pier 4 為準。',
-    timeline: [
-      { time: '11:00', place: PLACES.TCDC, desc: '設計中心：看展＋選品，節奏放慢。' },
-      { time: '15:00', place: PLACES.ICONSIAM, desc: 'SookSiam 室內市集：雨天也能逛。' },
-      { time: '19:45', place: PLACES.ICONSIAM_PIER4, desc: 'White Orchid Cruise 登船：先 Check-in 再去 Pier 4。' }
-    ],
-    meals: {
-      breakfast: [{ place: PLACES.HOME, d: '飯店早餐：慢慢吃，補血。' }],
-      lunch: [{ place: { name:'午餐（河岸/市中心彈性）', q:'Bang Rak Bangkok restaurants', note:'依當天動線就近吃最省腦。' }, d: '留彈性，避免為了吃硬拉車程。' }],
-      dinner: [{ place: PLACES.ICONSIAM, d: '先在 ICONSIAM 補點東西，遊船上再吃正餐。' }]
-    },
-    transport: {
-      headline: '河岸路線（可執行）',
-      steps: [
-        { a: '到 BTS Saphan Taksin', b: '先導航到 Saphan Taksin（S6）。' },
-        { a: '到 ICONSIAM', b: '接駁船或叫車直達 ICONSIAM。' },
-        { a: '登船', b: '到 Check-in → 再到 Pier 4。' }
-      ]
-    }
-  },
-
-  {
-    id: 5, day: 'DAY 5', date: '2026-02-13', title: '文青日常與歸國',
-    tag: { type:'textile', text:'Ari / Asok' },
-    note: '今天關鍵：SPA＋Terminal 21＋撤退路線。移動用軌道＋短程叫車。',
-    timeline: [
-      { time: '11:00', place: PLACES.ARI, desc: '文青巷弄：挑 1–2 間咖啡＋小店就好。' },
-      { time: '15:00', place: PLACES.MAKKHA_ASOKE, desc: '按完直接去 Terminal 21 吃晚餐最順。' },
-      { time: '18:00', place: PLACES.TERMINAL21, desc: 'Pier 21：先搶座位再買。' },
-      { time: '20:45', place: PLACES.BKK, desc: '走 ARL 撤退最穩；提早抓出發時間。' }
-    ],
-    meals: {
-      breakfast: [{ place: PLACES.NANA_COFFEE, d: '手沖/拿鐵都穩；別點太多甜。' }],
-      lunch: [{ place: PLACES.OR_TOR_KOR, d: '水果現切：買了就吃，別背太久。' }],
-      dinner: [{ place: PLACES.PIER21, d: '打拋豬＋飲料：簡單收尾。' }]
-    },
-    transport: {
-      headline: '歸國撤退（自用保命）',
-      steps: [
-        { a: 'Ari → Asok', b: 'BTS 到 Asok（或轉乘到 Asok）。' },
-        { a: '回飯店拿行李', b: `直接導航回 ${HOME.name}。` },
-        { a: '去 BKK', b: '走軌道到 Phaya Thai 轉 ARL 到 BKK。' }
-      ]
-    }
-  }
-];
-
-/* =========================
-   State
-========================= */
-let currentDayId = 2;
-let todayMode = true;
-let sheetPlace = null;
-
-/* =========================
-   Today Mode helpers
-========================= */
-const todayIso = () => new Date().toISOString().slice(0,10);
-const parseTimeOnDate = (iso, hhmm) => {
-  const [hh, mm] = hhmm.split(':').map(Number);
-  return new Date(`${iso}T${String(hh).padStart(2,'0')}:${String(mm).padStart(2,'0')}:00`);
-};
-const getNextIndexForDay = (dayObj) => {
-  const now = new Date();
-  const iso = todayIso();
-  const isToday = dayObj.date === iso;
-  if(!isToday) return 0;
-  for(let i=0;i<dayObj.timeline.length;i++){
-    const dt = parseTimeOnDate(iso, dayObj.timeline[i].time);
-    if(dt > now) return i;
-  }
-  return Math.max(0, dayObj.timeline.length - 1);
-};
-
-/* =========================
-   Sheet
-========================= */
-window.openMeal = (placeObj, desc) => {
-  sheetPlace = placeObj || null;
-  document.getElementById('sheetTitle').textContent = placeObj?.name || '';
-
-  const extra = [
-    placeObj?.thai ? `泰文：${placeObj.thai}` : '',
-    placeObj?.address ? `地址：${placeObj.address}` : '',
-    placeObj?.note ? `提示：${placeObj.note}` : '',
-    placeObj?.access?.bts ? `BTS：${placeObj.access.bts}` : '',
-    placeObj?.access?.mrt ? `MRT：${placeObj.access.mrt}` : '',
-    placeObj?.access?.exit ? `出口：${placeObj.access.exit}` : '',
-    placeObj?.access?.pier ? `碼頭：${placeObj.access.pier}` : '',
-    placeObj?.access?.lastMile ? `最後一段：${placeObj.access.lastMile}` : ''
-  ].filter(Boolean).join('\n');
-
-  document.getElementById('sheetDesc').textContent =
-    (desc || '') + (extra ? `\n\n${extra}` : '');
-
-  document.getElementById('sheet').classList.add('show');
-  document.getElementById('overlay').classList.add('show');
-};
-
-window.openSheetNav = () => {
-  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
-  window.open(toMapsDir(q), '_blank', 'noopener');
-};
-window.openSheetView = () => {
-  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
-  window.open(toMapsSearch(q), '_blank', 'noopener');
-};
-window.copySheetQ = () => {
-  const q = sheetPlace?.q || sheetPlace?.name || document.getElementById('sheetTitle').textContent;
-  copyText(q);
-};
-window.closeSheet = () => {
-  sheetPlace = null;
-  document.getElementById('sheet').classList.remove('show');
-  document.getElementById('overlay').classList.remove('show');
-};
-
-/* =========================
-   Render
-========================= */
+/* ======================
+   Rendering
+====================== */
 const renderAll = () => {
-  // Day list
+  // day buttons
   const daylist = document.getElementById('daylist');
   daylist.innerHTML = itinerary.map(d => `
     <div class="daybtn ${d.id === currentDayId ? 'active' : ''}" onclick="selectDay(${d.id})">
-      <strong>${d.day}</strong><small>${formatDateZh(d.date)}</small>
+      <strong>${d.day}</strong><small>${d.date}</small>
     </div>
   `).join('');
 
-  const d = itinerary.find(x => x.id === currentDayId) || itinerary[0];
+  const d = itinerary.find(x => x.id === currentDayId);
   document.getElementById('mainTitle').textContent = `${d.day}｜${d.title}`;
   document.getElementById('mainNote').textContent = d.note;
 
-  // --- Title badge ---
-  const badge = document.getElementById('dayBadge');
-  const badgeText = document.getElementById('badgeText');
-  if(d.tag && d.tag.type){
-    badge.style.display = 'inline-flex';
-    badge.className = `badge ${d.tag.type}`;
-    badgeText.textContent = d.tag.text || '';
-  }else{
-    badge.style.display = 'none';
-  }
-
+  // Timeline
   let html = `
     <div class="section-header">
-      <div class="dot" style="background:rgba(201,162,39,0.9)"></div>
-      <span>📍 行程卡（查看 / 導航 / 複製）</span>
+      <div class="dot" style="background:rgba(31,154,168,0.95)"></div>
+      <span>📍 景點導航（點卡片 → Google Maps）</span>
     </div>
     <div class="timeline">
   `;
-
   d.timeline.forEach(it => {
-    const p = it.place || { name: it.what, q: it.q || it.what, thai: "", note: "", access:{} };
-    const q = p.q || p.name;
-
-    const subLine = [
-      p.thai ? `泰文：${p.thai}` : "",
-      p.access?.bts ? p.access.bts : "",
-      p.access?.mrt ? p.access.mrt : "",
-      p.access?.exit ? `Exit ${String(p.access.exit).replace(/Exit\s*/i,'')}` : "",
-      p.access?.pier ? p.access.pier : ""
-    ].filter(Boolean).join(" ｜ ");
-
-    const tipLine = p.note ? `提示：${p.note}` : "";
-
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(it.what)}`;
     html += `
-      <div class="item-card">
+      <a href="${mapsUrl}" target="_blank" rel="noopener" class="item-card">
         <div class="item-content">
           <div class="time-tag">${it.time}</div>
           <div class="what">
-            <div class="w">${p.name}</div>
-            <div class="d">${it.desc}</div>
-            ${subLine ? `<div class="d" style="margin-top:6px;font-weight:900;color:#374151;">${subLine}</div>` : ``}
-            ${tipLine ? `<div class="d" style="margin-top:6px;">${tipLine}</div>` : ``}
+            <div class="w">${escapeHtml(it.what)}</div>
+            <div class="d">${escapeHtml(it.desc)}</div>
           </div>
         </div>
-        <div class="item-footer">
-          <span style="color:var(--muted); font-weight:900;">快速操作</span>
-          <span class="footer-actions">
-            <a href="${toMapsSearch(q)}" target="_blank" rel="noopener">查看</a>
-            <a href="${toMapsDir(q)}" target="_blank" rel="noopener">導航</a>
-            <a href="javascript:void(0)" onclick="copyText('${q.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}')">複製</a>
-          </span>
-        </div>
-      </div>
+        <div class="item-footer">點擊卡片開啟導航 ↗</div>
+      </a>
     `;
   });
-
   html += `</div>`;
 
   // Transport
   html += `
     <div class="section-header">
-      <div class="dot" style="background:rgba(15,118,110,0.9)"></div>
-      <span>🚌 交通轉乘（可執行）</span>
+      <div class="dot" style="background:rgba(201,162,39,0.95)"></div>
+      <span>🚌 交通轉乘細節</span>
     </div>
     <div class="trans-steps">
-      <div style="padding:15px 20px 5px; font-size:12px; font-weight:900; color:var(--thai-teal)">${d.transport.headline}</div>
+      <div style="padding:14px 16px 6px; font-size:12px; font-weight:950; color:rgba(31,154,168,0.98)">${escapeHtml(d.transport.headline)}</div>
       ${d.transport.steps.map((s, i) => `
         <div class="t-step">
           <div class="t-n">${i+1}</div>
-          <div class="t-txt"><span class="a">${s.a}</span><span class="b">${s.b}</span></div>
+          <div class="t-txt"><span class="a">${escapeHtml(s.a)}</span><span class="b">${escapeHtml(s.b)}</span></div>
         </div>
       `).join('')}
     </div>
   `;
 
-   // Meals (SAFE: mobile friendly)
+  // Meals (SAFE: mobile friendly + Mode B meta)
   html += `
     <div class="section-header">
-      <div class="dot" style="background:rgba(180,35,24,0.85)"></div>
-      <span>🍜 美食（點名字 → Sheet → 查看/導航/複製）</span>
+      <div class="dot" style="background:rgba(180,35,24,0.95)"></div>
+      <span>🍜 餐點（點店名 → Sheet → 從上一站導航）</span>
     </div>
     <div class="meals-grid">
   `;
 
   const mTypesFixed = [
-    {t:'早餐', k:'breakfast', c:'var(--thai-teal)'},
+    {t:'早餐', k:'breakfast', c:'rgba(31,154,168,0.95)'},
     {t:'午餐', k:'lunch', c:'rgba(201,162,39,0.95)'},
     {t:'晚餐', k:'dinner', c:'rgba(180,35,24,0.95)'}
   ];
@@ -1093,19 +972,21 @@ const renderAll = () => {
     `;
 
     (d.meals[m.k] || []).forEach(item => {
-      const p = item.place || { name: item.n, q: item.q || item.n, note: "" };
+      const p = item.place || { name: item.n || '', q: item.q || item.n || '', note: '' };
       const key = registerPlace(p);
 
       const summary = (item.d || '').split('\n')[0].trim();
-      const summaryHtml = summary ? `<div class="d" style="margin-top:4px;">${escapeHtml(summary)}</div>` : '';
+      const summaryHtml = summary ? `<div class="d">${escapeHtml(summary)}</div>` : '';
 
       html += `
         <li>
           <span class="meal-item-link"
                 data-action="open-meal"
                 data-placekey="${key}"
-                data-desc="${escapeAttr(item.d || '')}">
-            ${escapeHtml(p.name)}
+                data-desc="${escapeAttr(item.d || '')}"
+                data-aftertime="${escapeAttr(item.afterTime || '')}"
+                data-mealtype="${escapeAttr(m.k)}">
+            ${escapeHtml(p.name || '（未命名）')}
           </span>
           ${summaryHtml}
         </li>
@@ -1116,156 +997,147 @@ const renderAll = () => {
   });
 
   html += `</div>`;
+
   document.getElementById('content').innerHTML = html;
+
+  // update today hint
+  document.getElementById('todayHint').textContent = `（${getTodayDayLabel()}）`;
 };
 
-window.selectDay = (id) => {
-  currentDayId = id;
-  todayMode = false;
-  syncTodayBtn();
-  renderAll();
+/* ======================
+   Interactions
+====================== */
+window.selectDay = (id) => { currentDayId = id; renderAll(); };
+
+window.closeSheet = () => {
+  document.getElementById('sheet').classList.remove('show');
+  document.getElementById('overlay').classList.remove('show');
 };
 
-const syncTodayBtn = () => {
-  const btn = document.getElementById('todayBtn');
-  btn.textContent = `今天模式：${todayMode ? '開' : '關'}`;
-  btn.classList.toggle('primary', todayMode);
-};
+window.openMeal = (placeObj, desc, meta = {}) => {
+  const d = itinerary.find(x => x.id === currentDayId);
+  const prevStop = getPrevStopByMeal(d, meta.afterTime);
+  const origin = prevStop?.what || '';
+  const dest = placeObj?.q || placeObj?.name || '';
 
-window.toggleTodayMode = () => {
-  todayMode = !todayMode;
-  syncTodayBtn();
-  if(todayMode) applyTodayMode();
-  else renderAll();
-};
+  const searchUrl = dest
+    ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dest)}`
+    : '';
 
-window.openHomeDir = () => {
-  window.open(toMapsDir(HOME.q), '_blank', 'noopener');
-};
+  const dirUrl = dest
+    ? `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(dest)}&travelmode=transit`
+    : '';
 
-/* =========================
-   Today Mode apply
-========================= */
-const applyTodayMode = () => {
-  if(!todayMode) return;
+  const dirFromPrevUrl = (origin && dest)
+    ? `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(origin)}&destination=${encodeURIComponent(dest)}&travelmode=transit`
+    : '';
 
-  const iso = todayIso();
-  const found = itinerary.find(x => x.date === iso);
-  if(found){
-    currentDayId = found.id;
-  }
-  renderAll();
+  document.getElementById('sheetTitle').textContent = placeObj?.name || '美食';
+  document.getElementById('sheetDesc').textContent =
+    (desc || '') + (placeObj?.note ? `\n\n【備註】${placeObj.note}` : '') +
+    (origin ? `\n\n【上一站】${origin}${meta.afterTime ? `（≤ ${meta.afterTime}）` : ''}` : '');
 
-  requestAnimationFrame(() => {
-    const dayObj = itinerary.find(x => x.id === currentDayId);
-    if(!dayObj) return;
+  const btns = [];
+  if(dirFromPrevUrl) btns.push(`<a class="primary" href="${dirFromPrevUrl}" target="_blank" rel="noopener">從上一站導航</a>`);
+  if(dirUrl) btns.push(`<a href="${dirUrl}" target="_blank" rel="noopener">導航</a>`);
+  if(searchUrl) btns.push(`<a href="${searchUrl}" target="_blank" rel="noopener">查看</a>`);
+  if(dest) btns.push(`<button onclick="copyText('${escapeAttr(dest)}')">複製關鍵字</button>`);
 
-    const idx = getNextIndexForDay(dayObj);
+  document.getElementById('sheetBtns').innerHTML = btns.join('');
 
-    // clear old next
-    document.querySelectorAll('.item-card.next').forEach(el => el.classList.remove('next'));
-
-    const cards = Array.from(document.querySelectorAll('.timeline .item-card'));
-    const target = cards[idx];
-    if(target){
-      target.classList.add('next');
-      target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
-
-    // main note -> next stop summary (only if today exists)
-    if(dayObj.date === iso){
-      const it = dayObj.timeline[idx];
-      const p = it.place || { name: it.what, q: it.q || it.what };
-      const now = new Date();
-      const dt = parseTimeOnDate(iso, it.time);
-      const mins = Math.round((dt - now)/60000);
-      const eta = mins > 0 ? `約 ${mins} 分鐘後` : '就是現在/已過';
-      document.getElementById('mainNote').textContent =
-        `今天模式：下一站 ${it.time}｜${p.name}（${eta}）`;
-    }
-  });
-};
-
-/* =========================
-   Full-text search (results list)
-========================= */
-const placeText = (p) => {
-  if(!p) return '';
-  const acc = p.access || {};
-  return [
-    p.name, p.thai, p.q, p.address, p.note,
-    acc.bts, acc.mrt, acc.exit, acc.pier, acc.lastMile
-  ].filter(Boolean).join(' ');
-};
-
-const dayBlob = (d) => {
-  const tl = (d.timeline || []).map(x => `${x.time} ${placeText(x.place)} ${x.desc || ''}`).join(' ');
-  const tr = (d.transport?.steps || []).map(x => `${x.a} ${x.b}`).join(' ');
-  const ml = ['breakfast','lunch','dinner']
-    .flatMap(k => (d.meals?.[k] || []).map(x => `${placeText(x.place)} ${x.d || ''}`))
-    .join(' ');
-  return `${d.day} ${d.title} ${d.note} ${formatDateZh(d.date)} ${tl} ${tr} ${ml}`.toLowerCase();
+  document.getElementById('sheet').classList.add('show');
+  document.getElementById('overlay').classList.add('show');
 };
 
 window.handleSearch = () => {
   const q = document.getElementById('q').value.trim().toLowerCase();
-  if(!q){
-    if(todayMode) applyTodayMode();
-    else renderAll();
-    return;
+  if(!q){ renderAll(); return; }
+
+  // Find day by day/title
+  let found = itinerary.find(d =>
+    d.day.toLowerCase().includes(q) ||
+    d.title.toLowerCase().includes(q) ||
+    d.date.toLowerCase().includes(q)
+  );
+
+  // Find within timeline
+  if(!found){
+    found = itinerary.find(d => d.timeline.some(t =>
+      (t.what||'').toLowerCase().includes(q) ||
+      (t.desc||'').toLowerCase().includes(q)
+    ));
   }
 
-  // while searching, disable today mode
-  todayMode = false;
-  syncTodayBtn();
-
-  const hits = itinerary
-    .map(d => ({ d, blob: dayBlob(d) }))
-    .filter(x => x.blob.includes(q))
-    .map(x => x.d);
-
-  if(hits.length === 0){
-    document.getElementById('content').innerHTML =
-      `<div style="padding:14px; color:var(--muted); font-weight:900;">找不到「${q}」相關內容</div>`;
-    return;
+  // Find within meals
+  if(!found){
+    found = itinerary.find(d => {
+      const allMeals = [...(d.meals.breakfast||[]), ...(d.meals.lunch||[]), ...(d.meals.dinner||[])];
+      return allMeals.some(m =>
+        (m.place?.name || '').toLowerCase().includes(q) ||
+        (m.place?.q || '').toLowerCase().includes(q) ||
+        (m.d || '').toLowerCase().includes(q)
+      );
+    });
   }
 
-  document.getElementById('content').innerHTML = `
-    <div class="section-header"><div class="dot" style="background:rgba(231,207,134,0.9)"></div><span>🔎 搜尋結果</span></div>
-    <div class="timeline">
-      ${hits.map(d => `
-        <div class="item-card" onclick="selectDay(${d.id})" style="cursor:pointer;">
-          <div class="item-content">
-            <div class="time-tag">${d.day}</div>
-            <div class="what">
-              <div class="w">${d.title}</div>
-              <div class="d">${formatDateZh(d.date)}｜${d.note}</div>
-            </div>
-          </div>
-          <div class="item-footer"><span style="color:var(--muted);font-weight:900;">點擊切換到這一天</span><span style="color:var(--thai-teal);font-weight:900;">↗</span></div>
-        </div>
-      `).join('')}
-    </div>
-  `;
-};
-
-/* =========================
-   Init
-========================= */
-window.onload = () => {
-  syncTodayBtn();
-  applyTodayMode();
-
-  const iso = todayIso();
-  const hasToday = itinerary.some(x => x.date === iso);
-  if(!hasToday){
+  if(found){
+    currentDayId = found.id;
     renderAll();
+  }else{
+    toast('找不到符合的內容');
   }
 };
+
+/* ======================
+   Today mode (based on local date in Asia/Taipei)
+   This trip is Feb 9–13. We'll map:
+   Feb 9 -> Day1, Feb 10 -> Day2, Feb 11 -> Day3, Feb 12 -> Day4, Feb 13 -> Day5
+====================== */
+const getTodayDayLabel = () => {
+  const now = new Date();
+  const m = now.getMonth() + 1;
+  const d = now.getDate();
+  return `${m}/${d}`;
+};
+
+window.goToday = () => {
+  const now = new Date();
+  const m = now.getMonth() + 1;
+  const d = now.getDate();
+  // match 2/9..2/13
+  const map = { '2/9': 1, '2/10': 2, '2/11': 3, '2/12': 4, '2/13': 5 };
+  const key = `${m}/${d}`;
+  const id = map[key];
+  if(id){
+    currentDayId = id;
+    renderAll();
+    toast(`今天模式：${itinerary.find(x=>x.id===id).day}`);
+  }else{
+    toast('今天不在此行程日期範圍（2/9–2/13）');
+  }
+};
+
+/* ======================
+   Event delegation for meal clicks (mobile-safe)
+====================== */
+document.addEventListener('click', (e) => {
+  const el = e.target.closest('[data-action="open-meal"]');
+  if(!el) return;
+
+  const key = el.getAttribute('data-placekey');
+  const desc = (el.getAttribute('data-desc') || '').replaceAll('\\n','\n');
+  const afterTime = el.getAttribute('data-aftertime') || '';
+  const mealType = el.getAttribute('data-mealtype') || '';
+  const placeObj = placeRegistry[key];
+
+  if(placeObj){
+    window.openMeal(placeObj, desc, { afterTime, mealType });
+  }else{
+    toast('找不到該美食資料（請重新整理頁面）');
+  }
+});
+
+window.onload = renderAll;
 </script>
 </body>
-
 </html>
-
-
-
