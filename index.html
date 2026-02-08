@@ -6,53 +6,54 @@
   <title>曼谷行程查詢｜Eason 自用版</title>
   <style>
     :root{
-      --bg-start: #fff5f8;
-      --bg-end: #f0f7ff;
-      --card-bg: #ffffff;
-      --text: #2c3e50;
-      --muted: #7f8c8d;
+      --bg-start:#fff5f8;
+      --bg-end:#f0f7ff;
+      --text:#2c3e50;
+      --muted:#7f8c8d;
 
-      --accent: #7aa7ff;       /* 寶寶藍 */
-      --pink: #ffb7d2;         /* 草莓粉 */
-      --peach: #ffd8a8;        /* 蜜桃橘 */
-      --lavender: #d0c4ff;     /* 薰衣草紫 */
-      --mint: #b2f2bb;         /* 薄荷綠 */
-      --thai-teal: #1f9aa8;    /* 泰式青綠 */
-      --thai-gold: #c9a227;    /* 泰金 */
+      --accent:#7aa7ff;
+      --pink:#ffb7d2;
+      --peach:#ffd8a8;
+      --lavender:#d0c4ff;
+      --mint:#b2f2bb;
 
-      --border: rgba(31, 41, 55, 0.08);
-      --shadow-soft: 0 6px 18px rgba(0, 0, 0, 0.06);
-      --shadow-strong: 0 12px 28px rgba(0,0,0,0.10);
-      --sans: "PingFang TC", "Noto Sans TC", system-ui, -apple-system, sans-serif;
+      --thai-teal:#1f9aa8;
+      --thai-gold:#c9a227;
+      --thai-red:#b42318;
+
+      --border:rgba(31,41,55,0.08);
+      --shadow-soft:0 6px 18px rgba(0,0,0,0.06);
+      --shadow-strong:0 12px 28px rgba(0,0,0,0.10);
+      --sans:"PingFang TC","Noto Sans TC",system-ui,-apple-system,sans-serif;
     }
 
-    *{box-sizing:border-box; -webkit-tap-highlight-color: transparent;}
+    *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
     body{
       margin:0;
       font-family:var(--sans);
       color:var(--text);
-      background: linear-gradient(180deg, var(--bg-start) 0%, var(--bg-end) 100%);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background:linear-gradient(180deg,var(--bg-start) 0%,var(--bg-end) 100%);
+      min-height:100vh;
+      overflow-x:hidden;
     }
 
-    /* ====== Thai-ish header ====== */
+    /* ===== Header ===== */
     header{
-      padding: 22px 16px 14px;
-      position: relative;
-      overflow: hidden;
+      padding:22px 16px 14px;
+      position:relative;
+      overflow:hidden;
       text-align:center;
     }
     header::before{
       content:"";
       position:absolute; inset:-80px -80px auto -80px;
-      height: 220px;
+      height:220px;
       background:
         radial-gradient(circle at 30% 30%, rgba(201,162,39,0.35), transparent 55%),
         radial-gradient(circle at 70% 35%, rgba(180,35,24,0.28), transparent 55%),
         radial-gradient(circle at 50% 80%, rgba(31,154,168,0.18), transparent 60%),
         linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0));
-      filter: saturate(1.05);
+      filter:saturate(1.05);
     }
     header::after{
       content:"";
@@ -64,41 +65,40 @@
           rgba(255,255,255,0) 2px,
           rgba(255,255,255,0) 10px
         );
-      opacity: 0.22;
+      opacity:0.22;
       pointer-events:none;
-      mix-blend-mode: multiply;
+      mix-blend-mode:multiply;
     }
-
     .brand{
-      position: relative;
+      position:relative;
       display:inline-flex;
       flex-direction:column;
       gap:6px;
-      padding: 10px 14px 12px;
-      border-radius: 22px;
-      border: 1px solid rgba(201,162,39,0.25);
-      background: rgba(255,255,255,0.60);
-      box-shadow: var(--shadow-soft);
-      backdrop-filter: blur(6px);
+      padding:10px 14px 12px;
+      border-radius:22px;
+      border:1px solid rgba(201,162,39,0.25);
+      background:rgba(255,255,255,0.60);
+      box-shadow:var(--shadow-soft);
+      backdrop-filter:blur(6px);
     }
     h1{
-      font-size: 24px;
-      font-weight: 950;
-      margin: 0;
-      letter-spacing: 1.6px;
-      background: linear-gradient(90deg, rgba(180,35,24,0.95), rgba(201,162,39,0.95), rgba(31,154,168,0.95));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      font-size:24px;
+      font-weight:950;
+      margin:0;
+      letter-spacing:1.6px;
+      background:linear-gradient(90deg, rgba(180,35,24,0.95), rgba(201,162,39,0.95), rgba(31,154,168,0.95));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
     }
     .sub{
-      color: #4b5563;
-      font-size: 12px;
-      font-weight: 700;
+      color:#4b5563;
+      font-size:12px;
+      font-weight:700;
     }
     .sub b{color:#111827}
     .topline{
       position:relative;
-      margin-top: 10px;
+      margin-top:10px;
       display:flex;
       justify-content:center;
       gap:10px;
@@ -109,74 +109,59 @@
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid var(--border);
+      padding:9px 12px;
+      border-radius:999px;
+      border:1px solid var(--border);
       background:#fff;
-      box-shadow: var(--shadow-soft);
-      font-size: 12px;
-      font-weight: 850;
+      box-shadow:var(--shadow-soft);
+      font-size:12px;
+      font-weight:850;
       color:#374151;
     }
-    .pill small{font-weight:700; color:#6b7280}
+    .pill small{font-weight:700;color:#6b7280}
     .pill .dotx{width:8px;height:8px;border-radius:50%}
     .pill button{
-      border:none;
-      background:transparent;
-      font: inherit;
-      cursor:pointer;
-      color: inherit;
-      padding:0;
+      border:none;background:transparent;
+      font:inherit;cursor:pointer;color:inherit;padding:0;
     }
 
-    .wrap{max-width:1100px; margin:0 auto; padding-bottom: 70px;}
-
-    .search-container{
-      padding: 0 16px 12px;
-    }
+    .wrap{max-width:1100px;margin:0 auto;padding-bottom:70px;}
+    .search-container{padding:0 16px 12px;}
     .search-box{
-      display:flex; align-items:center; gap:10px;
+      display:flex;align-items:center;gap:10px;
       background:#fff;
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 10px 12px;
-      box-shadow: var(--shadow-soft);
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:10px 12px;
+      box-shadow:var(--shadow-soft);
     }
-    .search-box input{
-      all: unset; flex:1; font-size: 14.5px; color: var(--text);
-    }
+    .search-box input{all:unset;flex:1;font-size:14.5px;color:var(--text);}
     .search-box .btn{
       border:none;
-      background: linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
-      color:#fff;
-      font-weight: 900;
-      padding: 9px 12px;
-      border-radius: 14px;
+      background:linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
+      color:#fff;font-weight:900;
+      padding:9px 12px;border-radius:14px;
       cursor:pointer;
-      box-shadow: 0 8px 18px rgba(180,35,24,0.12);
+      box-shadow:0 8px 18px rgba(180,35,24,0.12);
       white-space:nowrap;
     }
 
-    .grid{
-      display:block;
-    }
-
+    .grid{display:block;}
     .day-selector{
-      display:flex; overflow-x:auto;
-      padding: 0 12px 10px;
-      gap: 10px;
-      -webkit-overflow-scrolling: touch;
+      display:flex;overflow-x:auto;
+      padding:0 12px 10px;
+      gap:10px;
+      -webkit-overflow-scrolling:touch;
     }
-    .day-selector::-webkit-scrollbar { display:none; }
-
+    .day-selector::-webkit-scrollbar{display:none;}
     .daybtn{
-      flex: 0 0 118px;
+      flex:0 0 118px;
       background:#fff;
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 10px 10px;
+      border:1px solid var(--border);
+      border-radius:16px;
+      padding:10px;
       text-align:center;
-      box-shadow: var(--shadow-soft);
+      box-shadow:var(--shadow-soft);
       cursor:pointer;
       position:relative;
       overflow:hidden;
@@ -184,67 +169,40 @@
     .daybtn::before{
       content:"";
       position:absolute; inset:-20px -30px auto -30px;
-      height: 68px;
+      height:68px;
       background:
         radial-gradient(circle at 25% 40%, rgba(201,162,39,0.20), transparent 60%),
         radial-gradient(circle at 75% 35%, rgba(180,35,24,0.16), transparent 62%),
         radial-gradient(circle at 55% 90%, rgba(31,154,168,0.10), transparent 60%);
       opacity:.9;
     }
-    .daybtn strong{display:block; font-size: 14.5px; color: var(--thai-teal); font-weight: 950; position:relative}
-    .daybtn small{font-size: 11px; color: #6b7280; font-weight: 800; position:relative}
-
+    .daybtn strong{display:block;font-size:14.5px;color:var(--thai-teal);font-weight:950;position:relative}
+    .daybtn small{font-size:11px;color:#6b7280;font-weight:800;position:relative}
     .daybtn.active{
-      background: linear-gradient(135deg, rgba(180,35,24,0.92), rgba(201,162,39,0.88));
-      border-color: rgba(201,162,39,0.45);
-      box-shadow: var(--shadow-strong);
-      transform: translateY(-1px);
+      background:linear-gradient(135deg, rgba(180,35,24,0.92), rgba(201,162,39,0.88));
+      border-color:rgba(201,162,39,0.45);
+      box-shadow:var(--shadow-strong);
+      transform:translateY(-1px);
     }
-    .daybtn.active strong, .daybtn.active small{color:#fff}
+    .daybtn.active strong,.daybtn.active small{color:#fff}
 
-    .main-panel{padding: 0 16px;}
+    .main-panel{padding:0 16px;}
+    .meta-title{font-weight:950;font-size:19px;margin:6px 0 2px;letter-spacing:.2px;}
+    .meta-note{font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.55;}
 
-    .meta-title{
-      font-weight: 950;
-      font-size: 19px;
-      margin: 6px 0 2px;
-      letter-spacing: .2px;
-    }
-    .meta-note{
-      font-size: 12.5px;
-      color: var(--muted);
-      margin-bottom: 14px;
-      line-height: 1.55;
-    }
+    .section-header{display:flex;align-items:center;gap:10px;margin:18px 0 10px;}
+    .section-header span{font-weight:950;font-size:16px;color:#111827;letter-spacing:.2px;}
+    .dot{width:9px;height:9px;border-radius:50%;}
 
-    .section-header{
-      display:flex; align-items:center; gap: 10px;
-      margin: 18px 0 10px;
-    }
-    .section-header span{
-      font-weight: 950;
-      font-size: 16px;
-      color: #111827;
-      letter-spacing: .2px;
-    }
-    .dot{width: 9px; height: 9px; border-radius: 50%;}
-    .divider{
-      height:1px;
-      background: rgba(17,24,39,0.06);
-      margin: 16px 0 4px;
-    }
-
-    .timeline{display:flex; flex-direction:column; gap: 12px;}
+    .timeline{display:flex;flex-direction:column;gap:12px;}
     .item-card{
       background:#fff;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      text-decoration:none;
-      color: inherit;
-      display:block;
-      overflow:hidden;
-      will-change: transform;
+      border-radius:18px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      text-decoration:none;color:inherit;
+      display:block;overflow:hidden;
+      will-change:transform;
       position:relative;
     }
     .item-card::before{
@@ -253,59 +211,46 @@
       background:
         radial-gradient(circle at 20% 20%, rgba(201,162,39,0.10), transparent 55%),
         radial-gradient(circle at 80% 30%, rgba(180,35,24,0.08), transparent 60%);
-      opacity: .75;
+      opacity:.75;
       pointer-events:none;
     }
-    .item-card:active{transform: scale(0.997);}
-
+    .item-card:active{transform:scale(0.997);}
     .item-content{
       position:relative;
       display:grid;
-      grid-template-columns: 72px 1fr;
-      gap: 12px;
-      padding: 15px;
+      grid-template-columns:72px 1fr;
+      gap:12px;
+      padding:15px;
     }
     .time-tag{
-      background: rgba(31,154,168,0.10);
-      border: 1px solid rgba(31,154,168,0.18);
-      border-radius: 12px;
-      height: 38px;
-      display:grid; place-items:center;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      font-weight: 950;
-      color: rgba(31,154,168,0.98);
-      font-size: 13px;
+      background:rgba(31,154,168,0.10);
+      border:1px solid rgba(31,154,168,0.18);
+      border-radius:12px;
+      height:38px;
+      display:grid;place-items:center;
+      font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono",monospace;
+      font-weight:950;
+      color:rgba(31,154,168,0.98);
+      font-size:13px;
     }
-    .what .w{
-      font-weight: 950;
-      font-size: 15.5px;
-      margin-bottom: 4px;
-      color:#111827;
-    }
-    .what .d{
-      color: #6b7280;
-      font-size: 13px;
-      line-height: 1.5;
-    }
+    .what .w{font-weight:950;font-size:15.5px;margin-bottom:4px;color:#111827;}
+    .what .d{color:#6b7280;font-size:13px;line-height:1.5;}
     .item-footer{
       position:relative;
-      padding: 9px 14px;
-      background: rgba(249,250,251,0.85);
-      border-top: 1px solid rgba(17,24,39,0.06);
-      font-size: 11px;
-      font-weight: 900;
-      color: rgba(31,154,168,0.95);
-      display:flex;
-      justify-content: space-between;
-      align-items:center;
+      padding:9px 14px;
+      background:rgba(249,250,251,0.85);
+      border-top:1px solid rgba(17,24,39,0.06);
+      font-size:11px;font-weight:900;
+      color:rgba(31,154,168,0.95);
+      display:flex;justify-content:space-between;align-items:center;
     }
 
     .trans-steps{
       background:#fff;
-      border-radius: 18px;
-      border: 1px solid var(--border);
-      box-shadow: var(--shadow-soft);
-      padding: 6px 0;
+      border-radius:18px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow-soft);
+      padding:6px 0;
       overflow:hidden;
       position:relative;
     }
@@ -316,178 +261,125 @@
         radial-gradient(circle at 15% 25%, rgba(201,162,39,0.10), transparent 56%),
         radial-gradient(circle at 75% 15%, rgba(180,35,24,0.06), transparent 65%),
         radial-gradient(circle at 60% 95%, rgba(31,154,168,0.06), transparent 70%);
-      opacity: .75;
+      opacity:.75;
       pointer-events:none;
     }
     .trans-steps > *{position:relative;}
-    .t-step{
-      display:flex; gap: 12px;
-      padding: 12px 16px;
-      border-bottom: 1px solid rgba(17,24,39,0.06);
-    }
+    .t-step{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid rgba(17,24,39,0.06);}
     .t-step:last-child{border-bottom:none;}
     .t-n{
-      min-width: 22px; height: 22px;
-      border-radius: 50%;
-      background: rgba(201,162,39,0.95);
-      color:#fff;
-      display:grid; place-items:center;
-      font-weight: 950;
-      font-size: 11px;
-      margin-top: 1px;
-      box-shadow: 0 8px 14px rgba(201,162,39,0.18);
+      min-width:22px;height:22px;border-radius:50%;
+      background:rgba(201,162,39,0.95);
+      color:#fff;display:grid;place-items:center;
+      font-weight:950;font-size:11px;margin-top:1px;
+      box-shadow:0 8px 14px rgba(201,162,39,0.18);
     }
-    .t-txt .a{font-weight: 900; font-size: 13.5px; color:#111827; display:block;}
-    .t-txt .b{font-size: 12px; color:#6b7280; margin-top: 2px; line-height: 1.45;}
+    .t-txt .a{font-weight:900;font-size:13.5px;color:#111827;display:block;}
+    .t-txt .b{font-size:12px;color:#6b7280;margin-top:2px;line-height:1.45;}
 
     /* ===== Meals ===== */
     .meals-grid{
       display:grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
+      grid-template-columns:1fr;
+      gap:12px;
     }
     .meal-box{
       background:#fff;
-      border-radius: 16px;
-      padding: 18px 15px 15px;   /* FIX: give space for badge */
-      border: 1px solid var(--border);
+      border-radius:16px;
+      padding:18px 15px 15px;
+      border:1px solid var(--border);
       position:relative;
-      overflow: visible;          /* FIX: avoid clipping */
-      box-shadow: var(--shadow-soft);
+      overflow:visible; /* FIX: badges not clipped */
+      box-shadow:var(--shadow-soft);
     }
     .meal-type{
       position:absolute;
-      top: 10px;                 /* FIX: keep inside card */
-      left: 15px;
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-size: 10px;
-      font-weight: 950;
+      top:10px;left:15px;
+      padding:4px 10px;
+      border-radius:999px;
+      font-size:10px;
+      font-weight:950;
       color:#fff;
-      line-height: 1;
-      letter-spacing: .4px;
-      box-shadow: 0 10px 18px rgba(0,0,0,0.10);
+      line-height:1;
+      letter-spacing:.4px;
+      box-shadow:0 10px 18px rgba(0,0,0,0.10);
     }
-    .meal-box ul{margin: 12px 0 0; padding-left: 18px;}
-    .meal-box li{margin: 8px 0; font-size: 13.5px; line-height: 1.45;}
+    .meal-box ul{margin:12px 0 0;padding-left:18px;}
+    .meal-box li{margin:8px 0;font-size:13.5px;line-height:1.45;}
     .meal-item-link{
-      color: rgba(31,154,168,0.98);
-      font-weight: 950;
-      text-decoration: underline;
+      color:rgba(31,154,168,0.98);
+      font-weight:950;
+      text-decoration:underline;
       cursor:pointer;
     }
-    .meal-box .d{
-      color:#6b7280;
-      font-size: 12.5px;
-      margin-top: 4px;
-    }
+    .meal-box .d{color:#6b7280;font-size:12.5px;margin-top:4px;}
 
-    /* ===== Overlay sheet ===== */
-    .overlay{
-      position:fixed; inset:0;
-      background: rgba(0,0,0,0.35);
-      display:none;
-      z-index: 999;
-    }
+    /* ===== Sheet ===== */
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;z-index:999;}
     .sheet{
-      position:fixed; left:0; right:0; bottom:0;
+      position:fixed;left:0;right:0;bottom:0;
       background:#fff;
-      border-top: 6px solid rgba(201,162,39,0.92);
-      border-radius: 24px 24px 0 0;
-      padding: 18px 16px 22px;
+      border-top:6px solid rgba(201,162,39,0.92);
+      border-radius:24px 24px 0 0;
+      padding:18px 16px 22px;
       display:none;
-      z-index: 1000;
-      max-height: 78vh;
-      overflow-y: auto;
-      box-shadow: 0 -20px 40px rgba(0,0,0,0.16);
+      z-index:1000;
+      max-height:78vh;
+      overflow-y:auto;
+      box-shadow:0 -20px 40px rgba(0,0,0,0.16);
     }
-    .sheet.show, .overlay.show{display:block;}
-    .sheet-title{
-      font-weight: 950;
-      font-size: 18px;
-      color:#111827;
-      margin-bottom: 10px;
-      line-height: 1.25;
-    }
-    .sheet-desc{
-      font-size: 14px;
-      line-height: 1.75;
-      white-space: pre-line;
-      color:#374151;
-    }
-    .sheet-top{
-      display:flex;
-      justify-content: space-between;
-      align-items:flex-start;
-      gap:10px;
-    }
+    .sheet.show,.overlay.show{display:block;}
+    .sheet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+    .sheet-title{font-weight:950;font-size:18px;color:#111827;margin-bottom:10px;line-height:1.25;}
     .closebtn{
-      border:none;
-      background: rgba(31,154,168,0.10);
-      color: rgba(31,154,168,0.98);
-      font-weight: 950;
-      padding: 8px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      white-space:nowrap;
+      border:none;background:rgba(31,154,168,0.10);
+      color:rgba(31,154,168,0.98);
+      font-weight:950;padding:8px 12px;border-radius:14px;
+      cursor:pointer;white-space:nowrap;
     }
-    .sheet-btns{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      margin: 10px 0 14px;
-    }
-    .sheet-btns a, .sheet-btns button{
-      border:none;
-      background:#f3f4f6;
-      color:#111827;
-      font-weight: 950;
-      padding: 10px 12px;
-      border-radius: 14px;
-      cursor:pointer;
-      text-decoration:none;
-      font-size: 12.5px;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
+    .sheet-btns{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 14px;}
+    .sheet-btns a,.sheet-btns button{
+      border:none;background:#f3f4f6;color:#111827;
+      font-weight:950;padding:10px 12px;border-radius:14px;
+      cursor:pointer;text-decoration:none;font-size:12.5px;
+      display:inline-flex;align-items:center;gap:8px;
     }
     .sheet-btns a.primary{
-      background: linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
+      background:linear-gradient(90deg, rgba(180,35,24,0.92), rgba(201,162,39,0.92));
       color:#fff;
-      box-shadow: 0 12px 22px rgba(180,35,24,0.12);
+      box-shadow:0 12px 22px rgba(180,35,24,0.12);
     }
+    .sheet-desc{font-size:14px;line-height:1.75;white-space:pre-line;color:#374151;}
 
     /* ===== Toast ===== */
     .toast{
-      position:fixed;
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: 18px;
-      background: rgba(17,24,39,0.92);
+      position:fixed;left:50%;transform:translateX(-50%);
+      bottom:18px;
+      background:rgba(17,24,39,0.92);
       color:#fff;
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-weight: 900;
-      font-size: 12.5px;
-      z-index: 1200;
+      padding:10px 12px;
+      border-radius:14px;
+      font-weight:900;
+      font-size:12.5px;
+      z-index:1200;
       display:none;
-      max-width: 92vw;
+      max-width:92vw;
       text-align:center;
     }
 
-    @media (min-width: 920px){
-      .grid{display:grid; grid-template-columns: 260px 1fr; gap: 6px;}
+    @media (min-width:920px){
+      .grid{display:grid;grid-template-columns:260px 1fr;gap:6px;}
       .day-selector{
-        flex-direction: column;
-        position: sticky;
-        top: 18px;
-        height: auto;
-        padding: 0 0 14px 10px;
+        flex-direction:column;
+        position:sticky;
+        top:18px;
+        height:auto;
+        padding:0 0 14px 10px;
       }
-      .main-panel{padding: 0 18px;}
-      .meals-grid{grid-template-columns: 1fr 1fr 1fr;}
-      .search-container{padding: 0 18px 12px;}
-      header{padding: 24px 18px 14px;}
+      .main-panel{padding:0 18px;}
+      .meals-grid{grid-template-columns:1fr 1fr 1fr;}
+      .search-container{padding:0 18px 12px;}
+      header{padding:24px 18px 14px;}
     }
   </style>
 </head>
@@ -496,7 +388,7 @@
   <header>
     <div class="brand">
       <h1>BANGKOK TRIP</h1>
-      <div class="sub"><b>Eason</b> 自用行程｜泰式風格＋「上一站導航」版</div>
+      <div class="sub"><b>Eason</b> 自用行程｜泰式風格＋「上一站導航（B）」版</div>
     </div>
     <div class="topline">
       <div class="pill" title="飯店">
@@ -557,7 +449,7 @@ const itinerary = [
     day: 'DAY 1',
     date: '2/9（一）',
     title: '抵達曼谷：落地安頓',
-    note: '你約 20:00 到飯店：晚餐改成「近＋在地」；早餐/午餐在台北→ ×。',
+    note: '你約 20:00 到飯店：Day1 晚餐改「坐下來吃＋喝＋音樂」。早餐/午餐在台北→ ×。',
     timeline: [
       { time: '18:10', what: 'Suvarnabhumi Airport (BKK)', desc: '出關領行李。建議在 BKK 地下一樓 ARL 站旁的 SuperRich 換匯。' },
       { time: '20:00', what: 'Metro Hotel Phahonyothin 35', desc: '入住。地址：168 Phahonyothin 35 Alley, Chatuchak, Bangkok 10900' }
@@ -574,13 +466,13 @@ const itinerary = [
       lunch: [{ place: { name: '×', q: '', note: '午餐在台北' }, d: '×' }],
       dinner: [
         {
-          place: { name:'ตลาดนัดเมเจอร์ รัชโยธิน（Major Ratchayothin 夜市）', q:'ตลาดนัดเมเจอร์ รัชโยธิน', note:'主選｜近飯店生活圈，晚到也吃得到' },
-          d: '【必吃】Moo Ping 豬肉串＋糯米飯、Som Tam 青木瓜沙拉、烤魷魚/烤蝦、泰奶。\n【點餐】怕辣：เผ็ดน้อย（小辣）；不辣：ไม่เผ็ด。',
+          place: { name:'A MEET Ratchayothin（อะมีตรัชโยธิน）', q:'A MEET Ratchayothin', note:'主選｜坐下來吃＋喝＋音樂，開到很晚（衣服會沾味）' },
+          d: '【必點】หมูกระทะ（烤肉鍋）＋Som Tam、烤豬頸肉（คอหมูย่าง）、Larb。\n【點法】先點綜合肉盤＋蔬菜盤＋飲料；不夠再加。\n【提醒】煙味很重，建議穿好洗的上衣。',
           afterTime: '20:00'
         },
         {
-          place: { name:'Suki TeeNoi Gold（泰式壽喜鍋）', q:'Suki TeeNoi Gold Major Ratchayothin', note:'備案｜想坐著吃／深夜保底' },
-          d: '【必點】綜合肉盤＋蔬菜＋丸子類。\n【適合】落地累爆、只想快速補熱量與喝熱湯。',
+          place: { name:'ตลาดนัดเมเจอร์ รัชโยธิน（Major Ratchayothin 夜市）', q:'ตลาดนัดเมเจอร์ รัชโยธิน', note:'備案｜想走走逛逛、吃小吃就用它' },
+          d: '【必吃】Moo Ping 豬肉串＋糯米飯、Som Tam 青木瓜沙拉、烤魷魚/烤蝦、泰奶。\n【點餐】怕辣：เผ็ดน้อย（小辣）；不辣：ไม่เผ็ด。',
           afterTime: '20:00'
         }
       ]
@@ -592,11 +484,12 @@ const itinerary = [
     day: 'DAY 2',
     date: '2/10（二）',
     title: '老城經典與鄭王廟',
-    note: '大皇宮服裝限制嚴格（短褲短裙不行）。晚餐就留在唐人街，不跟 Day1 重複。',
+    note: '大皇宮服裝限制嚴格（短褲短裙不行）。晚餐就留在唐人街；中間加一站水果冰沙降溫。',
     timeline: [
       { time: '09:00', what: 'The Grand Palace', desc: '大皇宮。建議一早去避人潮與熱。' },
       { time: '13:00', what: 'Wat Pho 臥佛寺', desc: '看巨大的室內金色臥佛。' },
       { time: '15:30', what: 'Wat Arun 鄭王廟', desc: '搭渡輪跨河，欣賞白色碎瓷拼貼尖塔。' },
+      { time: '17:00', what: 'Best fruit frappe in bangkok', desc: '588 Chakkraphet Rd｜老城旁邊水果冰沙，當作降溫補水站。' },
       { time: '18:30', what: 'Yaowarat Chinatown', desc: '唐人街夜晚宵夜戰場。' }
     ],
     transport: {
@@ -647,7 +540,7 @@ const itinerary = [
     day: 'DAY 3',
     date: '2/11（三）',
     title: '郊區奇觀與 SPA',
-    note: '今日車程遠：建議跟團/包車。晚間 SPA 後晚餐以「好下飯但不虐胃」為主。',
+    note: '今日車程遠：建議跟團/包車。晚間在 Asok 按摩後，晚餐主選吃伊善菜；備案改 MBK 的หมูกระทะ（深夜救星）。',
     timeline: [
       { time: '08:30', what: 'Maeklong Railway Market', desc: '美功鐵道市場，看火車穿梭市場。' },
       { time: '12:00', what: 'Damnoen Saduak Floating Market', desc: '丹嫩莎朵水上市場，搭船體驗水上交易。' },
@@ -687,8 +580,8 @@ const itinerary = [
           afterTime: '19:30'
         },
         {
-          place: { name:'Khao Tom（清淡宵夜粥店：就近）', q:'ข้าวต้ม ใกล้ Asok', note:'備案｜SPA後想清淡放空' },
-          d: '【必點】ข้าวต้ม＋炒菜/蛋。\n【適合】按摩後不想吃太刺激。',
+          place: { name:'Nak La Mookata MBK Center นักล่าหมูกระทะ（MBK）', q:'Nak La Mookata MBK Center', note:'備案｜開到深夜，按摩後餓爆救星（衣服會沾味）' },
+          d: '【必點】豬五花/梅花、牛肉、綜合海鮮、蔬菜盤＋沾醬。\n【怎麼去】從 Asok 搭 BTS 到 National Stadium，走空橋進 MBK。',
           afterTime: '19:30'
         }
       ]
@@ -753,11 +646,11 @@ const itinerary = [
     day: 'DAY 5',
     date: '2/13（五）',
     title: '文青日常與歸國',
-    note: '週五市區更容易塞：軌道交通優先。Terminal 21 做最後晚餐/採買。',
+    note: '週五市區更容易塞：軌道交通優先。晚餐改成「Savoey（正餐）主選＋Pier 21（CP）備案」。',
     timeline: [
       { time: '11:00', what: 'Ari', desc: '文青區：咖啡廳、設計小店。' },
       { time: '13:30', what: 'Or Tor Kor Market', desc: '頂級市場：水果、熟食很強。' },
-      { time: '18:00', what: 'Terminal 21 Asok', desc: '最後採買＆晚餐（Pier 21）。' },
+      { time: '18:00', what: 'Terminal 21 Asok', desc: '最後採買＆晚餐（Savoey / Pier 21）。' },
       { time: '20:45', what: 'Go to Airport', desc: '回飯店拿行李→機場快線/機場。' }
     ],
     transport: {
@@ -790,14 +683,14 @@ const itinerary = [
       ],
       dinner: [
         {
-          place: { name:'Pier 21（Terminal 21 美食街）', q:'Pier 21 Terminal 21', note:'主選｜離境前 CP 值之王' },
-          d: '【必點】打拋豬飯、Pad Thai、豬腳飯（Kha Moo）、泰奶。\n【優點】便宜快、採買也順路。',
+          place: { name:'Savoey @ Terminal 21 Asok', q:'Savoey Terminal 21 Asok', note:'主選｜Terminal 21 5F，正餐型泰菜/海鮮' },
+          d: '【必點】咖哩蟹/黃咖哩類、檸檬魚、炒空心菜。\n【策略】吃完順便逛到關店。',
           afterTime: '18:00'
         },
         {
-          place: { name:'BKK 機場 Food Court（備用）', q:'Suvarnabhumi Airport food court', note:'備案｜時間太趕就不要繞路' },
-          d: '【必點】簡單湯麵/咖哩飯＋飲料。\n【策略】保命用，不追名店。',
-          afterTime: '20:45'
+          place: { name:'Pier 21（Terminal 21 美食街）', q:'Pier 21 Terminal 21', note:'備案｜CP 值保底，快狠準' },
+          d: '【必點】打拋豬飯、Pad Thai、豬腳飯（Kha Moo）、泰奶。\n【優點】便宜快、最後採買也順路。',
+          afterTime: '18:00'
         }
       ]
     }
@@ -825,7 +718,6 @@ const copyText = async (text) => {
     await navigator.clipboard.writeText(text);
     toast('已複製');
   }catch(e){
-    // fallback
     const ta = document.createElement('textarea');
     ta.value = text;
     document.body.appendChild(ta);
@@ -836,7 +728,7 @@ const copyText = async (text) => {
   }
 };
 
-// ===== Safe HTML helpers =====
+// Safe HTML helpers
 const escapeHtml = (s='') =>
   String(s).replaceAll('&','&amp;')
            .replaceAll('<','&lt;')
@@ -866,7 +758,7 @@ const registerPlace = (p) => {
 };
 
 /* ======================
-   Time helpers for "Mode B" (prev stop by meal)
+   Time helpers for Mode B
 ====================== */
 const timeToMin = (t) => {
   if(!t) return null;
@@ -895,6 +787,10 @@ const getPrevStopByMeal = (dayObj, afterTime) => {
    Rendering
 ====================== */
 const renderAll = () => {
+  // reset registry each render to avoid growth
+  for (const k in placeRegistry) delete placeRegistry[k];
+  placeSeq = 1;
+
   // day buttons
   const daylist = document.getElementById('daylist');
   daylist.innerHTML = itinerary.map(d => `
@@ -949,7 +845,7 @@ const renderAll = () => {
     </div>
   `;
 
-  // Meals (SAFE: mobile friendly + Mode B meta)
+  // Meals
   html += `
     <div class="section-header">
       <div class="dot" style="background:rgba(180,35,24,0.95)"></div>
@@ -1034,15 +930,15 @@ window.openMeal = (placeObj, desc, meta = {}) => {
 
   document.getElementById('sheetTitle').textContent = placeObj?.name || '美食';
   document.getElementById('sheetDesc').textContent =
-    (desc || '') + (placeObj?.note ? `\n\n【備註】${placeObj.note}` : '') +
-    (origin ? `\n\n【上一站】${origin}${meta.afterTime ? `（≤ ${meta.afterTime}）` : ''}` : '');
+    (desc || '') +
+    (placeObj?.note ? `\n\n【備註】${placeObj.note}` : '') +
+    (origin ? `\n\n【餐前上一站】${origin}${meta.afterTime ? `（≤ ${meta.afterTime}）` : ''}` : '');
 
   const btns = [];
   if(dirFromPrevUrl) btns.push(`<a class="primary" href="${dirFromPrevUrl}" target="_blank" rel="noopener">從上一站導航</a>`);
   if(dirUrl) btns.push(`<a href="${dirUrl}" target="_blank" rel="noopener">導航</a>`);
   if(searchUrl) btns.push(`<a href="${searchUrl}" target="_blank" rel="noopener">查看</a>`);
   if(dest) btns.push(`<button onclick="copyText('${escapeAttr(dest)}')">複製關鍵字</button>`);
-
   document.getElementById('sheetBtns').innerHTML = btns.join('');
 
   document.getElementById('sheet').classList.add('show');
@@ -1053,14 +949,12 @@ window.handleSearch = () => {
   const q = document.getElementById('q').value.trim().toLowerCase();
   if(!q){ renderAll(); return; }
 
-  // Find day by day/title
   let found = itinerary.find(d =>
     d.day.toLowerCase().includes(q) ||
     d.title.toLowerCase().includes(q) ||
     d.date.toLowerCase().includes(q)
   );
 
-  // Find within timeline
   if(!found){
     found = itinerary.find(d => d.timeline.some(t =>
       (t.what||'').toLowerCase().includes(q) ||
@@ -1068,7 +962,6 @@ window.handleSearch = () => {
     ));
   }
 
-  // Find within meals
   if(!found){
     found = itinerary.find(d => {
       const allMeals = [...(d.meals.breakfast||[]), ...(d.meals.lunch||[]), ...(d.meals.dinner||[])];
@@ -1089,24 +982,17 @@ window.handleSearch = () => {
 };
 
 /* ======================
-   Today mode (based on local date in Asia/Taipei)
-   This trip is Feb 9–13. We'll map:
-   Feb 9 -> Day1, Feb 10 -> Day2, Feb 11 -> Day3, Feb 12 -> Day4, Feb 13 -> Day5
+   Today mode (Trip: Feb 9–13)
 ====================== */
 const getTodayDayLabel = () => {
   const now = new Date();
-  const m = now.getMonth() + 1;
-  const d = now.getDate();
-  return `${m}/${d}`;
+  return `${now.getMonth()+1}/${now.getDate()}`;
 };
 
 window.goToday = () => {
   const now = new Date();
-  const m = now.getMonth() + 1;
-  const d = now.getDate();
-  // match 2/9..2/13
-  const map = { '2/9': 1, '2/10': 2, '2/11': 3, '2/12': 4, '2/13': 5 };
-  const key = `${m}/${d}`;
+  const key = `${now.getMonth()+1}/${now.getDate()}`;
+  const map = { '2/9':1, '2/10':2, '2/11':3, '2/12':4, '2/13':5 };
   const id = map[key];
   if(id){
     currentDayId = id;
@@ -1118,7 +1004,7 @@ window.goToday = () => {
 };
 
 /* ======================
-   Event delegation for meal clicks (mobile-safe)
+   Event delegation for meal clicks
 ====================== */
 document.addEventListener('click', (e) => {
   const el = e.target.closest('[data-action="open-meal"]');
